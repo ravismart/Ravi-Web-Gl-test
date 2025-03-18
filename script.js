@@ -29,9 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     case 'home':
                         resolve(`
                             <div class="video-background">
-                                <div style="padding:56.25% 0 0 0; position:relative;">
-                                    <iframe src="https://player.vimeo.com/video/1015033668?autoplay=1&muted=1&loop=1&background=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1;" title="Ravikanth Compositing Reel 2024"></iframe>
-                                </div>
+                                <iframe src="https://player.vimeo.com/video/1015033668?autoplay=1&muted=1&loop=1&background=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" title="Ravikanth Compositing Reel 2024"></iframe>
                                 <div class="overlay"></div>
                                 <div class="content">
                                     <h1>VFX Compositor</h1>
@@ -71,9 +69,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     case 'portfolio':
                         resolve(`
                             <div class="portfolio-gallery">
-                                <img src="https://i.postimg.cc/Z5Y5Z5Y5/thumb1.jpg" alt="Project 1" data-description="Sci-Fi Composite" loading="lazy">
-                                <img src="https://i.postimg.cc/5yWvX5kQ/after.jpg" alt="Project 2" data-description="Fantasy Scene" loading="lazy">
-                                <img src="https://i.postimg.cc/8zF5V5vQ/before.jpg" alt="Project 3" data-description="Explosion Effect" loading="lazy">
+                                <img src="https://i.postimg.cc/xjFKQSK5/MG-0345.jpg" alt="VFX Project 1" data-description="Sci-Fi Composite" loading="lazy">
+                                <img src="https://i.postimg.cc/nc4BD9yR/Bird-Silhoutte-Photography-Ravikanth.jpg" alt="VFX Project 2" data-description="Fantasy Scene" loading="lazy">
+                                <img src="https://i.postimg.cc/sxFGB3wC/Glass-Botle-Photography-Ravikanth.jpg" alt="VFX Project 3" data-description="Explosion Effect" loading="lazy">
                             </div>
                         `);
                         break;
@@ -90,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     case 'contact':
                         resolve(`
                             <div class="contact-form">
-                                <h2>Contact Me</h2>
+                                <h2>Get in Touch</h2>
                                 <form id="contactForm" action="https://formspree.io/f/mdknbwwq" method="POST">
                                     <input type="text" name="name" placeholder="Your Name" required>
                                     <input type="email" name="email" placeholder="Your Email" required>
@@ -105,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     default:
                         resolve('<p>Page not found.</p>');
                 }
-            }, 300); // Reduced delay for smoother UX
+            }, 300);
         });
     }
 
