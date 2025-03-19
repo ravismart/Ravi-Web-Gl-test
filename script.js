@@ -1,12 +1,18 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const modal = document.getElementById('image-modal');
+    const imageModal = document.getElementById('image-modal');
     const modalImg = document.getElementById('modal-image');
     const captionText = document.getElementById('caption');
-    const closeBtn = document.querySelector('.close');
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
+    const sliderModal = document.getElementById('slider-modal');
+    const sliderBefore = document.querySelector('.slider-before');
+    const sliderAfter = document.querySelector('.slider-after');
+    const sliderDivider = document.querySelector('.slider-modal-content .slider-divider');
+    const sliderCaption = document.getElementById('slider-caption');
+    const closeBtn = document.querySelectorAll('.close');
+    const prevBtn = document.querySelectorAll('.prev');
+    const nextBtn = document.querySelectorAll('.next');
     const loader = document.getElementById('loader');
-    let currentIndex = 0;
+    let currentImageIndex = 0;
+    let currentSliderIndex = 0;
 
     function loadPage(page) {
         const mainContent = document.getElementById('main-content');
@@ -167,6 +173,7 @@ document.addEventListener("DOMContentLoaded", function() {
         switch (page) {
             case 'breakdowns':
                 initializeSliders();
+                initializeSliderModal();
                 break;
             case 'portfolio':
                 initializePortfolio();
@@ -253,52 +260,52 @@ document.addEventListener("DOMContentLoaded", function() {
     function initializePortfolio() {
         const images = document.querySelectorAll('.portfolio-gallery img');
         images.forEach((img, index) => {
-            img.addEventListener('click', () => openModal(img, index));
+            img.addEventListener('click', () => openImageModal(img, index));
         });
 
-        closeBtn.addEventListener('click', closeModal);
-        prevBtn.addEventListener('click', () => changeImage(-1));
-        nextBtn.addEventListener('click', () => changeImage(1));
+        closeBtn[0].addEventListener('click', closeImageModal);
+        prevBtn[0].addEventListener('click', () => changeImage(-1));
+        nextBtn[0].addEventListener('click', () => changeImage(1));
 
-        modal.addEventListener('click', (e) => {
-            if (e.button === 0 && e.target === modal) changeImage(-1); // Left click
-            if (e.button === 2) changeImage(1); // Right click
+        imageModal.addEventListener('click', (e) => {
+            if (e.button === 0 && e.target === imageModal) changeImage(-1);
+            if (e.button === 2) changeImage(1);
         });
 
         document.addEventListener('keydown', (e) => {
-            if (modal.classList.contains('active')) {
+            if (imageModal.classList.contains('active')) {
                 if (e.key === 'ArrowLeft') changeImage(-1);
                 else if (e.key === 'ArrowRight') changeImage(1);
-                else if (e.key === 'Escape') closeModal();
+                else if (e.key === 'Escape') closeImageModal();
             }
         });
 
-        modal.addEventListener('contextmenu', (e) => e.preventDefault());
+        imageModal.addEventListener('contextmenu', (e) => e.preventDefault());
     }
 
-    function openModal(image, index) {
-        modal.classList.add('active');
-        modal.setAttribute('aria-hidden', 'false');
+    function openImageModal(image, index) {
+        imageModal.classList.add('active');
+        imageModal.setAttribute('aria-hidden', 'false');
         modalImg.src = image.src;
         captionText.textContent = image.getAttribute('data-description') || image.alt;
-        currentIndex = index;
-        updateNavButtons();
+        currentImageIndex = index;
+        updateImageNavButtons();
         modalImg.classList.add('scaling');
         setTimeout(() => modalImg.classList.remove('scaling'), 300);
         
-        if (modal.requestFullscreen) {
-            modal.requestFullscreen();
-        } else if (modal.webkitRequestFullscreen) {
-            modal.webkitRequestFullscreen();
-        } else if (modal.msRequestFullscreen) {
-            modal.msRequestFullscreen();
+        if (imageModal.requestFullscreen) {
+            imageModal.requestFullscreen();
+        } else if (imageModal.webkitRequestFullscreen) {
+            imageModal.webkitRequestFullscreen();
+        } else if (imageModal.msRequestFullscreen) {
+            imageModal.msRequestFullscreen();
         }
     }
 
-    function closeModal() {
-        modal.classList.remove('active');
-        modalImg.classList.remove('scaling');
-        modal.setAttribute('aria-hidden', 'true');
+    function closeImageModal() {
+        imageModal.classList.remove('active');
+        modalImg.classList.remove('scaling', 'settle');
+        imageModal.setAttribute('aria-hidden', 'true');
         
         if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
             if (document.exitFullscreen) {
@@ -313,22 +320,161 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function changeImage(n) {
         const images = document.querySelectorAll('.portfolio-gallery img');
-        currentIndex = (currentIndex + n + images.length) % images.length;
-        const img = images[currentIndex];
+        currentImageIndex = (currentImageIndex + n + images.length) % images.length;
+        const img = images[currentImageIndex];
         
-        modalImg.classList.add(n < 0 ? 'settle-left' : 'settle-right');
+        modalImg.classList.add('settle');
         setTimeout(() => {
             modalImg.src = img.src;
             captionText.textContent = img.getAttribute('data-description') || img.alt;
-            modalImg.classList.remove('settle-left', 'settle-right');
+            modalImg.classList.remove('settle');
         }, 500); // Match animation duration
-        updateNavButtons();
+        updateImageNavButtons();
     }
 
-    function updateNavButtons() {
+    function updateImageNavButtons() {
         const images = document.querySelectorAll('.portfolio-gallery img');
-        prevBtn.style.display = images.length > 1 ? 'block' : 'none';
-        nextBtn.style.display = images.length > 1 ? 'block' : 'none';
+        prevBtn[0].style.display = images.length > 1 ? 'block' : 'none';
+        nextBtn[0].style.display = images.length > 1 ? 'block' : 'none';
+    }
+
+    function initializeSliderModal() {
+        const sliders = document.querySelectorAll('.slider-container');
+        sliders.forEach((slider, index) => {
+            slider.addEventListener('click', () => openSliderModal(index));
+        });
+
+        closeBtn[1].addEventListener('click', closeSliderModal);
+        prevBtn[1].addEventListener('click', () => changeSlider(-1));
+        nextBtn[1].addEventListener('click', () => changeSlider(1));
+
+        sliderModal.addEventListener('click', (e) => {
+            if (e.button === 0 && e.target === sliderModal) changeSlider(-1);
+            if (e.button === 2) changeSlider(1);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (sliderModal.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') changeSlider(-1);
+                else if (e.key === 'ArrowRight') changeSlider(1);
+                else if (e.key === 'Escape') closeSliderModal();
+            }
+        });
+
+        sliderModal.addEventListener('contextmenu', (e) => e.preventDefault());
+    }
+
+    function openSliderModal(index) {
+        const sliders = document.querySelectorAll('.slider-container');
+        const descriptions = document.querySelectorAll('.slider-description');
+        currentSliderIndex = index;
+        
+        sliderBefore.src = sliders[index].querySelector('.before').src;
+        sliderAfter.src = sliders[index].querySelector('.after').src;
+        sliderCaption.innerHTML = descriptions[index].innerHTML;
+        
+        sliderModal.classList.add('active');
+        sliderModal.setAttribute('aria-hidden', 'false');
+        initializeSliderInModal();
+        updateSliderNavButtons();
+
+        if (sliderModal.requestFullscreen) {
+            sliderModal.requestFullscreen();
+        } else if (sliderModal.webkitRequestFullscreen) {
+            sliderModal.webkitRequestFullscreen();
+        } else if (sliderModal.msRequestFullscreen) {
+            sliderModal.msRequestFullscreen();
+        }
+    }
+
+    function closeSliderModal() {
+        sliderModal.classList.remove('active');
+        sliderModal.setAttribute('aria-hidden', 'true');
+        
+        if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    }
+
+    function changeSlider(n) {
+        const sliders = document.querySelectorAll('.slider-container');
+        const descriptions = document.querySelectorAll('.slider-description');
+        currentSliderIndex = (currentSliderIndex + n + sliders.length) % sliders.length;
+        
+        sliderBefore.classList.add('settle');
+        sliderAfter.classList.add('settle');
+        setTimeout(() => {
+            sliderBefore.src = sliders[currentSliderIndex].querySelector('.before').src;
+            sliderAfter.src = sliders[currentSliderIndex].querySelector('.after').src;
+            sliderCaption.innerHTML = descriptions[currentSliderIndex].innerHTML;
+            sliderBefore.classList.remove('settle');
+            sliderAfter.classList.remove('settle');
+            initializeSliderInModal();
+        }, 500); // Match animation duration
+        updateSliderNavButtons();
+    }
+
+    function updateSliderNavButtons() {
+        const sliders = document.querySelectorAll('.slider-container');
+        prevBtn[1].style.display = sliders.length > 1 ? 'block' : 'none';
+        nextBtn[1].style.display = sliders.length > 1 ? 'block' : 'none';
+    }
+
+    function initializeSliderInModal() {
+        let isDragging = false;
+
+        function updateSlider(x) {
+            const rect = sliderModal.querySelector('.slider-modal-content').getBoundingClientRect();
+            let offsetX = x - rect.left;
+            offsetX = Math.max(0, Math.min(offsetX, rect.width));
+            sliderDivider.style.left = `${offsetX}px`;
+            sliderAfter.style.clipPath = `inset(0 ${rect.width - offsetX}px 0 0)`;
+        }
+
+        sliderModal.removeEventListener('mousemove', handleMouseMove);
+        sliderModal.removeEventListener('mousedown', handleMouseDown);
+        document.removeEventListener('mouseup', handleMouseUp);
+        sliderModal.removeEventListener('touchmove', handleTouchMove);
+        sliderModal.removeEventListener('touchstart', handleTouchStart);
+
+        function handleMouseMove(e) {
+            if (isDragging) updateSlider(e.clientX);
+        }
+
+        function handleMouseDown(e) {
+            isDragging = true;
+            updateSlider(e.clientX);
+        }
+
+        function handleMouseUp() {
+            isDragging = false;
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            updateSlider(touch.clientX);
+        }
+
+        function handleTouchStart(e) {
+            const touch = e.touches[0];
+            updateSlider(touch.clientX);
+        }
+
+        sliderModal.addEventListener('mousemove', handleMouseMove);
+        sliderModal.addEventListener('mousedown', handleMouseDown);
+        document.addEventListener('mouseup', handleMouseUp);
+        sliderModal.addEventListener('touchmove', handleTouchMove, { passive: false });
+        sliderModal.addEventListener('touchstart', handleTouchStart, { passive: false });
+
+        const rect = sliderModal.querySelector('.slider-modal-content').getBoundingClientRect();
+        updateSlider(rect.left + rect.width / 2);
     }
 
     function initializeContact() {
