@@ -16,6 +16,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOM loaded, loading home page");
     const imageModal = document.getElementById('image-modal');
     const modalImg = document.getElementById('modal-image');
     const sliderModal = document.getElementById('slider-modal');
