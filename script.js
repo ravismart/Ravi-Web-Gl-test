@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <div class="breakdowns-container">
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Before VFX 1">
-                                    <img class="after" src="src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0" alt="After VFX 1">
+                                    <img class="after" src="https://images.unsplash.com/photo-1600585154526-990dced4363a" alt="After VFX 1">
                                     <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0" alt="Before VFX 2">
-                                    <img class="after" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="After VFX 2">
+                                    <img class="after" src="https://images.unsplash.com/photo-1518837695005-208458ced5b6" alt="After VFX 2">
                                     <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 </div>
 
                                 <div class="slider-container">
-                                    <img class="before" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Before VFX 3">
+                                    <img class="before" src="https://images.unsplash.com/photo-1472214103451-9374a3b6e3d8" alt="Before VFX 3">
                                     <img class="after" src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="After VFX 3">
                                     <div class="slider-divider"></div>
                                 </div>
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Before VFX 5">
-                                    <img class="after" src="https://images.unsplash.com/photo-1538370965046-79c0d6907d47" alt="After VFX 5">
+                                    <img class="after" src="https://images.unsplash.com/photo-1519750783828-1e2051123958" alt="After VFX 5">
                                     <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 </div>
 
                                 <div class="slider-container">
-                                    <img class="before" src="https://images.unsplash.com/photo-1538370965046-79c0d6907d47" alt="Before VFX 6">
+                                    <img class="before" src="https://images.unsplash.com/photo-1519125323398-675f398f6978" alt="Before VFX 6">
                                     <img class="after" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab" alt="After VFX 6">
                                     <div class="slider-divider"></div>
                                 </div>
@@ -209,29 +209,42 @@ document.addEventListener("DOMContentLoaded", function() {
                 afterImg.style.clipPath = `inset(0 ${rect.width - offsetX}px 0 0)`;
             }
 
-            container.addEventListener('mousemove', (e) => {
-                if (isDragging) updateSlider(e.clientX);
-            });
+            // Clear previous listeners to avoid duplicates
+            container.removeEventListener('mousemove', handleMouseMove);
+            container.removeEventListener('mousedown', handleMouseDown);
+            document.removeEventListener('mouseup', handleMouseUp);
+            container.removeEventListener('touchmove', handleTouchMove);
+            container.removeEventListener('touchstart', handleTouchStart);
 
-            container.addEventListener('mousedown', (e) => {
+            function handleMouseMove(e) {
+                if (isDragging) updateSlider(e.clientX);
+            }
+
+            function handleMouseDown(e) {
                 isDragging = true;
                 updateSlider(e.clientX);
-            });
+            }
 
-            document.addEventListener('mouseup', () => {
+            function handleMouseUp() {
                 isDragging = false;
-            });
+            }
 
-            container.addEventListener('touchmove', (e) => {
+            function handleTouchMove(e) {
                 e.preventDefault();
                 const touch = e.touches[0];
                 updateSlider(touch.clientX);
-            }, { passive: false });
+            }
 
-            container.addEventListener('touchstart', (e) => {
+            function handleTouchStart(e) {
                 const touch = e.touches[0];
                 updateSlider(touch.clientX);
-            }, { passive: false });
+            }
+
+            container.addEventListener('mousemove', handleMouseMove);
+            container.addEventListener('mousedown', handleMouseDown);
+            document.addEventListener('mouseup', handleMouseUp);
+            container.addEventListener('touchmove', handleTouchMove, { passive: false });
+            container.addEventListener('touchstart', handleTouchStart, { passive: false });
 
             // Set initial position to middle
             const rect = container.getBoundingClientRect();
@@ -274,12 +287,32 @@ document.addEventListener("DOMContentLoaded", function() {
         updateNavButtons();
         modalImg.classList.add('scaling');
         setTimeout(() => modalImg.classList.remove('scaling'), 300);
+        
+        // Enter fullscreen
+        if (modal.requestFullscreen) {
+            modal.requestFullscreen();
+        } else if (modal.webkitRequestFullscreen) {
+            modal.webkitRequestFullscreen();
+        } else if (modal.msRequestFullscreen) {
+            modal.msRequestFullscreen();
+        }
     }
 
     function closeModal() {
         modal.classList.remove('active');
-        modalImg.classList.remove('scaling', 'settling');
+        modalImg.classList.remove('scaling');
         modal.setAttribute('aria-hidden', 'true');
+        
+        // Exit fullscreen
+        if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
     }
 
     function changeImage(n) {
@@ -287,11 +320,11 @@ document.addEventListener("DOMContentLoaded", function() {
         currentIndex = (currentIndex + n + images.length) % images.length;
         const img = images[currentIndex];
         
-        modalImg.classList.add('settling');
+        modalImg.classList.add('scaling');
         setTimeout(() => {
             modalImg.src = img.src;
             captionText.textContent = img.getAttribute('data-description') || img.alt;
-            modalImg.classList.remove('settling');
+            modalImg.classList.remove('scaling');
         }, 300); // Match animation duration
         updateNavButtons();
     }
