@@ -25,27 +25,18 @@ body {
     top: 0;
     background: rgba(0, 0, 0, 0.9);
     padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     z-index: 1000;
     height: 80px; /* Fixed height for calculation */
-}
-
-.sticky-header .logo img {
-    width: 50px;
-    transition: transform 0.3s;
-}
-
-.sticky-header .logo img:hover {
-    transform: scale(1.1);
 }
 
 .sticky-header nav ul {
     display: flex;
     list-style: none;
     gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 .sticky-header nav ul li a {
@@ -58,6 +49,15 @@ body {
 .sticky-header nav ul li a:hover,
 .sticky-header nav ul li a.active {
     color: #00ccff;
+}
+
+.logo-img {
+    width: 50px;
+    transition: transform 0.3s;
+}
+
+.logo-link:hover .logo-img {
+    transform: scale(1.1);
 }
 
 /* Loader */
@@ -105,8 +105,8 @@ body {
 }
 
 .video-background iframe {
-    min-width: 100%;
-    min-height: 100%;
+    width: 100vw;
+    height: 100vh;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -123,7 +123,9 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 2;
+    z-index:
+
+2;
 }
 
 .video-background .content {
@@ -318,8 +320,8 @@ body {
 }
 
 .image-modal.fullscreen .modal-content {
-    max-height: 100vh;
     max-width: 100vw;
+    max-height: 100vh;
 }
 
 .modal-description {
@@ -365,10 +367,6 @@ body {
 
 .fullscreen-btn:hover {
     background: #00ccff;
-}
-
-.prev:hover, .next:hover, .fullscreen-btn:hover {
-    color: #fff;
 }
 
 /* About */
@@ -518,14 +516,12 @@ footer .social-icons a:hover {
 /* Responsive */
 @media (max-width: 768px) {
     .sticky-header {
-        flex-direction: column;
         padding: 1rem;
         height: auto;
     }
     .sticky-header nav ul {
         flex-direction: column;
         gap: 1rem;
-        margin-top: 1rem;
     }
     .video-background {
         height: calc(100vh - 140px - 140px); /* Adjusted for mobile header */
