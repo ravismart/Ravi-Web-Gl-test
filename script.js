@@ -19,6 +19,10 @@ document.addEventListener("DOMContentLoaded", function() {
             mainContent.classList.add('visible');
             initializePage(page);
             updateActiveNav(page);
+        }).catch(err => {
+            console.error('Error loading page:', err);
+            mainContent.innerHTML = '<p>Sorry, something went wrong.</p>';
+            loader.style.display = 'none';
         });
     }
 
@@ -56,8 +60,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     case 'breakdowns':
                         resolve(`
                             <div class="slider-container">
-                                <img src="https://i.postimg.cc/8zF5V5vQ/before.jpg" alt="Before VFX" loading="lazy">
-                                <div class="slider-overlay" style="background-image: url('https://i.postimg.cc/5yWvX5kQ/after.jpg');"></div>
+                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Before VFX" loading="lazy">
+                                <div class="slider-overlay" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4363a');"></div>
                                 <div class="slider-handle">|</div>
                             </div>
                             <div class="content-description">
@@ -198,6 +202,7 @@ document.addEventListener("DOMContentLoaded", function() {
         closeBtn.addEventListener('click', closeModal);
         prevBtn.addEventListener('click', () => changeImage(-1));
         nextBtn.addEventListener('click', () => changeImage(1));
+        modalImg.addEventListener('dblclick', toggleFullscreen);
 
         document.addEventListener('keydown', (e) => {
             if (modal.classList.contains('active')) {
@@ -210,6 +215,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function openModal(image, index) {
         modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
         modalImg.src = image.src;
         captionText.textContent = image.getAttribute('data-description') || image.alt;
         currentIndex = index;
@@ -217,7 +223,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function closeModal() {
-        modal.classList.remove('active');
+        modal.classList.remove('active', 'fullscreen');
+        modal.setAttribute('aria-hidden', 'true');
     }
 
     function changeImage(n) {
@@ -233,6 +240,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const images = document.querySelectorAll('.portfolio-gallery img');
         prevBtn.style.display = images.length > 1 ? 'block' : 'none';
         nextBtn.style.display = images.length > 1 ? 'block' : 'none';
+    }
+
+    function toggleFullscreen() {
+        modal.classList.toggle('fullscreen');
     }
 
     function initializeContact() {
