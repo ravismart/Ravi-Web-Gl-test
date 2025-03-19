@@ -67,8 +67,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         resolve(`
                             <div class="breakdowns-container">
                                 <div class="slider-container">
-                                    <img class="before" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Before VFX 1">
-                                    <img class="after" src="https://images.unsplash.com/photo-1600585154526-990dced4363a" alt="After VFX 1">
+                                    <img class="before" src="https://via.placeholder.com/800x450?text=Before+Image+1" alt="Before VFX 1">
+                                    <img class="after" src="https://via.placeholder.com/800x450?text=After+Image+1" alt="After VFX 1">
                                     <div class="slider-divider"></div>
                                     <span class="maximize" aria-label="Maximize slider">⤢</span>
                                 </div>
@@ -78,8 +78,8 @@ document.addEventListener("DOMContentLoaded", function() {
                                 </div>
 
                                 <div class="slider-container">
-                                    <img class="before" src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0" alt="Before VFX 2">
-                                    <img class="after" src="https://images.unsplash.com/photo-1518837695005-208458ced5b6" alt="After VFX 2">
+                                    <img class="before" src="https://via.placeholder.com/800x450?text=Before+Image+2" alt="Before VFX 2">
+                                    <img class="after" src="https://via.placeholder.com/800x450?text=After+Image+2" alt="After VFX 2">
                                     <div class="slider-divider"></div>
                                     <span class="maximize" aria-label="Maximize slider">⤢</span>
                                 </div>
@@ -89,14 +89,47 @@ document.addEventListener("DOMContentLoaded", function() {
                                 </div>
 
                                 <div class="slider-container">
-                                    <img class="before" src="https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg" alt="Before VFX 3">
-                                    <img class="after" src="https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg" alt="After VFX 3">
+                                    <img class="before" src="https://via.placeholder.com/800x450?text=Before+Image+3" alt="Before VFX 3">
+                                    <img class="after" src="https://via.placeholder.com/800x450?text=After+Image+3" alt="After VFX 3">
                                     <div class="slider-divider"></div>
                                     <span class="maximize" aria-label="Maximize slider">⤢</span>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 3</h2>
                                     <p>Nature scene with added elements.</p>
+                                </div>
+
+                                <div class="slider-container">
+                                    <img class="before" src="https://via.placeholder.com/800x450?text=Before+Image+4" alt="Before VFX 4">
+                                    <img class="after" src="https://via.placeholder.com/800x450?text=After+Image+4" alt="After VFX 4">
+                                    <div class="slider-divider"></div>
+                                    <span class="maximize" aria-label="Maximize slider">⤢</span>
+                                </div>
+                                <div class="slider-description">
+                                    <h2>VFX Breakdown 4</h2>
+                                    <p>Urban shot with VFX overlay.</p>
+                                </div>
+
+                                <div class="slider-container">
+                                    <img class="before" src="https://via.placeholder.com/800x450?text=Before+Image+5" alt="Before VFX 5">
+                                    <img class="after" src="https://via.placeholder.com/800x450?text=After+Image+5" alt="After VFX 5">
+                                    <div class="slider-divider"></div>
+                                    <span class="maximize" aria-label="Maximize slider">⤢</span>
+                                </div>
+                                <div class="slider-description">
+                                    <h2>VFX Breakdown 5</h2>
+                                    <p>Beach scene with digital enhancements.</p>
+                                </div>
+
+                                <div class="slider-container">
+                                    <img class="before" src="https://via.placeholder.com/800x450?text=Before+Image+6" alt="Before VFX 6">
+                                    <img class="after" src="https://via.placeholder.com/800x450?text=After+Image+6" alt="After VFX 6">
+                                    <div class="slider-divider"></div>
+                                    <span class="maximize" aria-label="Maximize slider">⤢</span>
+                                </div>
+                                <div class="slider-description">
+                                    <h2>VFX Breakdown 6</h2>
+                                    <p>Abstract before and after.</p>
                                 </div>
                             </div>
                         `);
@@ -106,15 +139,21 @@ document.addEventListener("DOMContentLoaded", function() {
                             <div class="portfolio-gallery">
                                 <div class="portfolio-item">
                                     <img src="https://i.postimg.cc/xjFKQSK5/MG-0345.jpg" alt="VFX Project 1" data-description="Sci-Fi Composite" loading="lazy">
-                                    <span class="maximize" aria-label="Maximize image">⤢</span>
                                 </div>
                                 <div class="portfolio-item">
                                     <img src="https://i.postimg.cc/nc4BD9yR/Bird-Silhoutte-Photography-Ravikanth.jpg" alt="VFX Project 2" data-description="Fantasy Scene" loading="lazy">
-                                    <span class="maximize" aria-label="Maximize image">⤢</span>
                                 </div>
                                 <div class="portfolio-item">
                                     <img src="https://i.postimg.cc/sxFGB3wC/Glass-Botle-Photography-Ravikanth.jpg" alt="VFX Project 3" data-description="Explosion Effect" loading="lazy">
-                                    <span class="maximize" aria-label="Maximize image">⤢</span>
+                                </div>
+                                <div class="portfolio-item">
+                                    <img src="https://via.placeholder.com/800x450?text=Portfolio+Image+4" alt="VFX Project 4" data-description="Space Battle" loading="lazy">
+                                </div>
+                                <div class="portfolio-item">
+                                    <img src="https://via.placeholder.com/800x450?text=Portfolio+Image+5" alt="VFX Project 5" data-description="Nature VFX" loading="lazy">
+                                </div>
+                                <div class="portfolio-item">
+                                    <img src="https://via.placeholder.com/800x450?text=Portfolio+Image+6" alt="VFX Project 6" data-description="Urban Composite" loading="lazy">
                                 </div>
                             </div>
                         `);
@@ -140,11 +179,31 @@ document.addEventListener("DOMContentLoaded", function() {
                         break;
                     case 'about':
                         resolve(`
-                            <div class="about-me-content">
-                                <img src="https://static.wixstatic.com/media/967fe0_b15d636debfc4d3fa5ccd91be5c9e92e~mv2.jpeg/v1/fill/w_223,h_223,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/1674928531371%20(1).jpeg" alt="Profile Picture" class="profile-picture">
-                                <h2>Driven VFX Compositor</h2>
-                                <p>I’m a passionate VFX compositor skilled in After Effects, Nuke, and Blender, dedicated to crafting immersive visual narratives.</p>
-                                <a href="https://bebabf30-5d26-4c3c-8107-26fc3135ebc5.filesusr.com/ugd/967fe0_a80febd4fbe1444685159c1d8b76c9f3.pdf" download="RK_Resume.pdf" class="download-resume-btn">Download Resume</a>
+                            <div class="about-container">
+                                <div class="about-profile">
+                                    <img src="https://static.wixstatic.com/media/967fe0_b15d636debfc4d3fa5ccd91be5c9e92e~mv2.jpeg/v1/fill/w_223,h_223,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/1674928531371%20(1).jpeg" alt="Ravikanth Kachibhotla" class="profile-picture">
+                                    <h2>Ravikanth Kachibhotla</h2>
+                                    <p>VFX Compositor</p>
+                                </div>
+                                <div class="about-background">
+                                    <h3>Background</h3>
+                                    <p class="typewriter">Passionate VFX Compositor with a keen eye for detail and a creative mindset. Currently at Singandkaur Photography Studio (Jun 2022 - Present) as a Candid Videographer/Photographer, mastering cinematic lighting techniques. Previously at Verto Motion Pictures (Apr 2017 - Sep 2019) as a Graphic Designer & Photographer, leading content creation. Advanced Visual Effects Diploma from CEA, Bow Valley College (May 2022 - Apr 2024), with hands-on cinematography experience. Bachelor of Technology in Computer Science and Engineering from Lovely Professional University (Aug 2015 - Sep 2019), showcasing 3D modeling and game development skills.</p>
+                                </div>
+                                <div class="about-skills">
+                                    <h3>Skills</h3>
+                                    <div class="skills-grid">
+                                        <div class="skill-item"><i class="fas fa-film"></i><span>NUKE</span></div>
+                                        <div class="skill-item"><i class="fas fa-video"></i><span>Houdini</span></div>
+                                        <div class="skill-item"><i class="fas fa-cube"></i><span>Maya</span></div>
+                                        <div class="skill-item"><i class="fas fa-paint-brush"></i><span>Substance Painter</span></div>
+                                        <div class="skill-item"><i class="fas fa-cut"></i><span>Premiere Pro</span></div>
+                                        <div class="skill-item"><i class="fas fa-tasks"></i><span>Flow Production Tracking</span></div>
+                                        <div class="skill-item"><i class="fas fa-globe"></i><span>English</span></div>
+                                        <div class="skill-item"><i class="fas fa-globe"></i><span>Telugu</span></div>
+                                        <div class="skill-item"><i class="fas fa-globe"></i><span>Hindi</span></div>
+                                    </div>
+                                    <a href="https://bebabf30-5d26-4c3c-8107-26fc3135ebc5.filesusr.com/ugd/967fe0_a80febd4fbe1444685159c1d8b76c9f3.pdf" download="RK_Resume.pdf" class="download-resume-btn">Download Resume</a>
+                                </div>
                             </div>
                         `);
                         break;
@@ -262,16 +321,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function initializePortfolio() {
-        const maximizeButtons = document.querySelectorAll('.portfolio-item .maximize');
         const images = document.querySelectorAll('.portfolio-gallery img');
-        maximizeButtons.forEach((btn, index) => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                openImageModal(index);
-            });
-        });
         images.forEach((img, index) => {
-            img.addEventListener('dblclick', () => openImageModal(index));
+            img.addEventListener('click', () => openImageModal(index));
         });
 
         closeBtn[0].addEventListener('click', closeImageModal);
@@ -327,6 +379,7 @@ document.addEventListener("DOMContentLoaded", function() {
         imageModal.classList.remove('active');
         modalImg.classList.remove('scaling', 'slide');
         imageModal.setAttribute('aria-hidden', 'true');
+        loadPage('portfolio'); // Return directly to portfolio
     }
 
     function changeImage(n) {
@@ -341,7 +394,7 @@ document.addEventListener("DOMContentLoaded", function() {
             captionText.textContent = img.getAttribute('data-description') || img.alt;
             modalImg.classList.remove('slide');
             modalImg.style.transform = 'translateX(0)';
-        }, 500); // Match animation duration
+        }, 500);
         updateImageNavButtons();
     }
 
@@ -415,6 +468,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         sliderModal.classList.remove('active');
         sliderModal.setAttribute('aria-hidden', 'true');
+        loadPage('breakdowns'); // Return directly to breakdowns
     }
 
     function changeSlider(n) {
@@ -435,7 +489,7 @@ document.addEventListener("DOMContentLoaded", function() {
             sliderBefore.style.transform = 'translateX(0)';
             sliderAfter.style.transform = 'translateX(0)';
             initializeSliderInModal();
-        }, 500); // Match animation duration
+        }, 500);
         updateSliderNavButtons();
     }
 
@@ -500,9 +554,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const form = document.getElementById('testimonialForm');
         const responseDiv = document.getElementById('testimonial-response');
         const testimonialList = document.getElementById('testimonial-list');
-
-        // Simulated testimonials (replace with backend in production)
-        const testimonials = [
+        let testimonials = JSON.parse(localStorage.getItem('testimonials')) || [
             { name: "John Doe", comment: "Ravikanth's work is outstanding! A true VFX master." },
             { name: "Jane Smith", comment: "Professional and creative. Highly recommend!" }
         ];
@@ -523,6 +575,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const name = form.name.value;
             const comment = form.comment.value;
             testimonials.push({ name, comment });
+            localStorage.setItem('testimonials', JSON.stringify(testimonials));
             displayTestimonials();
             responseDiv.innerHTML = '<p>Thank you for your review!</p>';
             form.reset();
