@@ -215,6 +215,11 @@ document.addEventListener("DOMContentLoaded", function() {
         prevBtn.addEventListener('click', () => changeImage(-1));
         nextBtn.addEventListener('click', () => changeImage(1));
 
+        modal.addEventListener('click', (e) => {
+            if (e.button === 0 && e.target === modal) changeImage(-1); // Left click
+            if (e.button === 2) changeImage(1); // Right click
+        });
+
         document.addEventListener('keydown', (e) => {
             if (modal.classList.contains('active')) {
                 if (e.key === 'ArrowLeft') changeImage(-1);
@@ -222,6 +227,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 else if (e.key === 'Escape') closeModal();
             }
         });
+
+        modal.addEventListener('contextmenu', (e) => e.preventDefault()); // Prevent right-click menu
     }
 
     function openModal(image, index) {
@@ -243,21 +250,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function changeImage(n) {
         const images = document.querySelectorAll('.portfolio-gallery img');
-        const newIndex = (currentIndex + n + images.length) % images.length;
-        const img = images[newIndex];
+        currentIndex = (currentIndex + n + images.length) % images.length;
+        const img = images[currentIndex];
         
-        // Apply slide animation based on direction
-        modalImg.classList.remove('sliding');
-        void modalImg.offsetWidth; // Trigger reflow
         modalImg.classList.add('sliding');
-        modalImg.style.animationName = n > 0 ? 'slideInRight' : 'slideInLeft';
-        
-        modalImg.src = img.src;
-        captionText.textContent = img.getAttribute('data-description') || img.alt;
-        currentIndex = newIndex;
+        setTimeout(() => {
+            modalImg.src = img.src;
+            captionText.textContent = img.getAttribute('data-description') || img.alt;
+            modalImg.classList.remove('sliding');
+        }, 300); // Match animation duration
         updateNavButtons();
-        
-        setTimeout(() => modalImg.classList.remove('sliding'), 500); // Match animation duration
     }
 
     function updateNavButtons() {
