@@ -185,15 +185,20 @@ body {
 
 .slider-container {
     position: relative;
-    max-width: 960px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
     overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
 }
 
 .slider-container img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
+    object-fit: cover;
 }
 
 .slider-container .before {
@@ -560,5 +565,8 @@ footer .social-icons a:hover {
     }
     .contact-form h2 {
         font-size: 1.8rem;
+    }
+    .slider-container {
+        max-width: 100%;
     }
 }
