@@ -20,7 +20,6 @@
                 <li><a href="#" data-page="mywork" class="nav-link">My Work</a></li>
                 <li><a href="#" data-page="breakdowns" class="nav-link">Breakdowns</a></li>
                 <li><a href="#" data-page="portfolio" class="nav-link">Portfolio</a></li>
-                <li><a href="#" data-page="testimonials" class="nav-link">Testimonials</a></li>
                 <li><a href="#" data-page="about" class="nav-link">About</a></li>
                 <li><a href="#" data-page="contact" class="nav-link">Contact</a></li>
             </ul>
@@ -46,12 +45,7 @@
 
     <div id="image-modal" class="image-modal" role="dialog" aria-labelledby="modal-image" aria-hidden="true">
         <span class="close" aria-label="Close modal">×</span>
-        <div class="modal-content-container">
-            <img class="modal-content" id="modal-image" alt="Enlarged portfolio image">
-            <div id="caption" class="modal-description" aria-live="polite"></div>
-        </div>
-        <span class="prev" aria-label="Previous image">❮</span>
-        <span class="next" aria-label="Next image">❯</span>
+        <img class="modal-content" id="modal-image" alt="Enlarged portfolio image">
     </div>
 
     <div id="slider-modal" class="slider-modal" role="dialog" aria-hidden="true">
@@ -60,12 +54,11 @@
             <img class="slider-before" alt="Before VFX">
             <img class="slider-after" alt="After VFX">
             <div class="slider-divider"></div>
-            <div id="slider-caption" class="slider-description" aria-live="polite"></div>
         </div>
-        <span class="prev" aria-label="Previous slider">❮</span>
-        <span class="next" aria-label="Next slider">❯</span>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
