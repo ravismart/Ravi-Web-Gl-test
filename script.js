@@ -14,6 +14,20 @@ document.addEventListener("DOMContentLoaded", function() {
     let currentImageIndex = 0;
     let currentSliderIndex = 0;
 
+    // Custom Cursor
+    const cursor = document.getElementById('cursor');
+    const cursorGlow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = `${e.pageX}px`;
+        cursor.style.top = `${e.pageY}px`;
+        cursorGlow.style.left = `${e.pageX}px`;
+        cursorGlow.style.top = `${e.pageY}px`;
+    });
+    document.querySelectorAll('a, button, .maximize, .portfolio-gallery img').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
     function loadPage(page) {
         const mainContent = document.getElementById('main-content');
         loader.style.display = 'block';
@@ -137,9 +151,18 @@ document.addEventListener("DOMContentLoaded", function() {
                     case 'portfolio':
                         resolve(`
                             <div class="portfolio-gallery">
-                                <img src="https://i.postimg.cc/xjFKQSK5/MG-0345.jpg" alt="VFX Project 1" data-description="Sci-Fi Composite" loading="lazy">
-                                <img src="https://i.postimg.cc/nc4BD9yR/Bird-Silhoutte-Photography-Ravikanth.jpg" alt="VFX Project 2" data-description="Fantasy Scene" loading="lazy">
-                                <img src="https://i.postimg.cc/sxFGB3wC/Glass-Botle-Photography-Ravikanth.jpg" alt="VFX Project 3" data-description="Explosion Effect" loading="lazy">
+                                <div class="portfolio-item">
+                                    <img src="https://i.postimg.cc/xjFKQSK5/MG-0345.jpg" alt="VFX Project 1" data-description="Sci-Fi Composite" loading="lazy">
+                                    <span class="maximize" aria-label="Maximize image">⤢</span>
+                                </div>
+                                <div class="portfolio-item">
+                                    <img src="https://i.postimg.cc/nc4BD9yR/Bird-Silhoutte-Photography-Ravikanth.jpg" alt="VFX Project 2" data-description="Fantasy Scene" loading="lazy">
+                                    <span class="maximize" aria-label="Maximize image">⤢</span>
+                                </div>
+                                <div class="portfolio-item">
+                                    <img src="https://i.postimg.cc/sxFGB3wC/Glass-Botle-Photography-Ravikanth.jpg" alt="VFX Project 3" data-description="Explosion Effect" loading="lazy">
+                                    <span class="maximize" aria-label="Maximize image">⤢</span>
+                                </div>
                             </div>
                         `);
                         break;
@@ -229,12 +252,12 @@ document.addEventListener("DOMContentLoaded", function() {
             container.removeEventListener('touchstart', handleTouchStart);
 
             function handleMouseMove(e) {
-                if (isDragging) updateSlider(e.clientX);
+                if (isDragging) updateSlider(e.pageX);
             }
 
             function handleMouseDown(e) {
                 isDragging = true;
-                updateSlider(e.clientX);
+                updateSlider(e.pageX);
             }
 
             function handleMouseUp() {
@@ -244,12 +267,12 @@ document.addEventListener("DOMContentLoaded", function() {
             function handleTouchMove(e) {
                 e.preventDefault();
                 const touch = e.touches[0];
-                updateSlider(touch.clientX);
+                updateSlider(touch.pageX);
             }
 
             function handleTouchStart(e) {
                 const touch = e.touches[0];
-                updateSlider(touch.clientX);
+                updateSlider(touch.pageX);
             }
 
             container.addEventListener('mousemove', handleMouseMove);
@@ -264,9 +287,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function initializePortfolio() {
-        const images = document.querySelectorAll('.portfolio-gallery img');
-        images.forEach((img, index) => {
-            img.addEventListener('click', () => openImageModal(img, index));
+        const maximizeButtons = document.querySelectorAll('.portfolio-item .maximize');
+        maximizeButtons.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openImageModal(index);
+            });
         });
 
         closeBtn[0].addEventListener('click', closeImageModal);
@@ -289,11 +315,12 @@ document.addEventListener("DOMContentLoaded", function() {
         imageModal.addEventListener('contextmenu', (e) => e.preventDefault());
     }
 
-    function openImageModal(image, index) {
+    function openImageModal(index) {
+        const images = document.querySelectorAll('.portfolio-gallery img');
         imageModal.classList.add('active');
         imageModal.setAttribute('aria-hidden', 'false');
-        modalImg.src = image.src;
-        captionText.textContent = image.getAttribute('data-description') || image.alt;
+        modalImg.src = images[index].src;
+        captionText.textContent = images[index].getAttribute('data-description') || images[index].alt;
         currentImageIndex = index;
         updateImageNavButtons();
         modalImg.classList.add('scaling');
@@ -319,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         imageModal.classList.remove('active');
-        modalImg.classList.remove('scaling', 'settle');
+        modalImg.classList.remove('scaling', 'slide');
         imageModal.setAttribute('aria-hidden', 'true');
     }
 
@@ -328,12 +355,14 @@ document.addEventListener("DOMContentLoaded", function() {
         currentImageIndex = (currentImageIndex + n + images.length) % images.length;
         const img = images[currentImageIndex];
         
-        modalImg.classList.add('settle');
+        modalImg.classList.add('slide');
+        modalImg.style.transform = n < 0 ? 'translateX(10px)' : 'translateX(-10px)';
         setTimeout(() => {
             modalImg.src = img.src;
             captionText.textContent = img.getAttribute('data-description') || img.alt;
-            modalImg.classList.remove('settle');
-        }, 400); // Match animation duration
+            modalImg.classList.remove('slide');
+            modalImg.style.transform = 'translateX(0)';
+        }, 500); // Match animation duration
         updateImageNavButtons();
     }
 
@@ -344,10 +373,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function initializeSliderModal() {
-        const maximizeButtons = document.querySelectorAll('.maximize');
+        const maximizeButtons = document.querySelectorAll('.slider-container .maximize');
         maximizeButtons.forEach((btn, index) => {
             btn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent slider drag from triggering
+                e.stopPropagation();
                 openSliderModal(index);
             });
         });
@@ -414,16 +443,20 @@ document.addEventListener("DOMContentLoaded", function() {
         const descriptions = document.querySelectorAll('.slider-description');
         currentSliderIndex = (currentSliderIndex + n + sliders.length) % sliders.length;
         
-        sliderBefore.classList.add('settle');
-        sliderAfter.classList.add('settle');
+        sliderBefore.classList.add('slide');
+        sliderAfter.classList.add('slide');
+        sliderBefore.style.transform = n < 0 ? 'translateX(10px)' : 'translateX(-10px)';
+        sliderAfter.style.transform = n < 0 ? 'translateX(10px)' : 'translateX(-10px)';
         setTimeout(() => {
             sliderBefore.src = sliders[currentSliderIndex].querySelector('.before').src;
             sliderAfter.src = sliders[currentSliderIndex].querySelector('.after').src;
             sliderCaption.innerHTML = descriptions[currentSliderIndex].innerHTML;
-            sliderBefore.classList.remove('settle');
-            sliderAfter.classList.remove('settle');
+            sliderBefore.classList.remove('slide');
+            sliderAfter.classList.remove('slide');
+            sliderBefore.style.transform = 'translateX(0)';
+            sliderAfter.style.transform = 'translateX(0)';
             initializeSliderInModal();
-        }, 400); // Match animation duration
+        }, 500); // Match animation duration
         updateSliderNavButtons();
     }
 
@@ -451,12 +484,12 @@ document.addEventListener("DOMContentLoaded", function() {
         sliderModal.removeEventListener('touchstart', handleTouchStart);
 
         function handleMouseMove(e) {
-            if (isDragging) updateSlider(e.clientX);
+            if (isDragging) updateSlider(e.pageX);
         }
 
         function handleMouseDown(e) {
             isDragging = true;
-            updateSlider(e.clientX);
+            updateSlider(e.pageX);
         }
 
         function handleMouseUp() {
@@ -466,12 +499,12 @@ document.addEventListener("DOMContentLoaded", function() {
         function handleTouchMove(e) {
             e.preventDefault();
             const touch = e.touches[0];
-            updateSlider(touch.clientX);
+            updateSlider(touch.pageX);
         }
 
         function handleTouchStart(e) {
             const touch = e.touches[0];
-            updateSlider(touch.clientX);
+            updateSlider(touch.pageX);
         }
 
         sliderModal.addEventListener('mousemove', handleMouseMove);
