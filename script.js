@@ -8,12 +8,13 @@ const firebaseConfig = {
     storageBucket: "ravi-vfx-portfolio.firebasestorage.app",
     messagingSenderId: "352536740700",
     appId: "1:352536740700:web:367340a615b35f42f9f799",
-    measurementId: "G-26N9GY8TSK"
+    
 };
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+console.log("Firebase initialized:", db);
 
 document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM loaded, loading home page");
