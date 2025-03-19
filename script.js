@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Before VFX 1">
                                     <img class="after" src="https://images.unsplash.com/photo-1600585154526-990dced4363a" alt="After VFX 1">
-                                    <input type="range" min="0" max="100" value="50" class="slider">
+                                    <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 1</h2>
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0" alt="Before VFX 2">
                                     <img class="after" src="https://images.unsplash.com/photo-1518837695005-208458ced5b6" alt="After VFX 2">
-                                    <input type="range" min="0" max="100" value="50" class="slider">
+                                    <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 2</h2>
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1472214103451-9374a3b6e3d8" alt="Before VFX 3">
                                     <img class="after" src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="After VFX 3">
-                                    <input type="range" min="0" max="100" value="50" class="slider">
+                                    <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 3</h2>
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b" alt="Before VFX 4">
                                     <img class="after" src="https://images.unsplash.com/photo-1538370965046-79c0d6907d47" alt="After VFX 4">
-                                    <input type="range" min="0" max="100" value="50" class="slider">
+                                    <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 4</h2>
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Before VFX 5">
                                     <img class="after" src="https://images.unsplash.com/photo-1519750783828-1e2051123958" alt="After VFX 5">
-                                    <input type="range" min="0" max="100" value="50" class="slider">
+                                    <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 5</h2>
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1519125323398-675f398f6978" alt="Before VFX 6">
                                     <img class="after" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab" alt="After VFX 6">
-                                    <input type="range" min="0" max="100" value="50" class="slider">
+                                    <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 6</h2>
@@ -196,12 +196,46 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function initializeSliders() {
         document.querySelectorAll('.slider-container').forEach(container => {
+            const beforeImg = container.querySelector('.before');
             const afterImg = container.querySelector('.after');
-            const slider = container.querySelector('.slider');
+            const divider = container.querySelector('.slider-divider');
+            let isDragging = false;
 
-            slider.addEventListener('input', () => {
-                afterImg.style.width = `${slider.value}%`;
+            function updateSlider(x) {
+                const rect = container.getBoundingClientRect();
+                let offsetX = x - rect.left;
+                offsetX = Math.max(0, Math.min(offsetX, rect.width));
+                divider.style.left = `${offsetX}px`;
+                afterImg.style.clipPath = `inset(0 ${rect.width - offsetX}px 0 0)`;
+            }
+
+            container.addEventListener('mousemove', (e) => {
+                if (isDragging) updateSlider(e.clientX);
             });
+
+            container.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                updateSlider(e.clientX);
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            container.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                updateSlider(touch.clientX);
+            }, { passive: false });
+
+            container.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                updateSlider(touch.clientX);
+            }, { passive: false });
+
+            // Set initial position to middle
+            const rect = container.getBoundingClientRect();
+            updateSlider(rect.left + rect.width / 2);
         });
     }
 
@@ -228,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        modal.addEventListener('contextmenu', (e) => e.preventDefault()); // Prevent right-click menu
+        modal.addEventListener('contextmenu', (e) => e.preventDefault());
     }
 
     function openModal(image, index) {
@@ -244,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function closeModal() {
         modal.classList.remove('active');
-        modalImg.classList.remove('scaling', 'sliding');
+        modalImg.classList.remove('scaling', 'settling');
         modal.setAttribute('aria-hidden', 'true');
     }
 
@@ -253,11 +287,11 @@ document.addEventListener("DOMContentLoaded", function() {
         currentIndex = (currentIndex + n + images.length) % images.length;
         const img = images[currentIndex];
         
-        modalImg.classList.add('sliding');
+        modalImg.classList.add('settling');
         setTimeout(() => {
             modalImg.src = img.src;
             captionText.textContent = img.getAttribute('data-description') || img.alt;
-            modalImg.classList.remove('sliding');
+            modalImg.classList.remove('settling');
         }, 300); // Match animation duration
         updateNavButtons();
     }
