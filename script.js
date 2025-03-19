@@ -1,3 +1,5 @@
+console.log("script.js loaded");
+
 // Firebase Configuration (Sign up at firebase.google.com, create a project, and get your config)
 const firebaseConfig = {
     apiKey: "AIzaSyAWXzsqC6BKxhQwHyLd6D4vsSskyq136yY",
