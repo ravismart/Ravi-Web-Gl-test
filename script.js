@@ -1,11 +1,12 @@
 // Firebase Configuration (Sign up at firebase.google.com, create a project, and get your config)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyAWXzsqC6BKxhQwHyLd6D4vsSskyq136yY",
+    authDomain: "ravi-vfx-portfolio.firebaseapp.com",
+    projectId: "ravi-vfx-portfolio",
+    storageBucket: "ravi-vfx-portfolio.firebasestorage.app",
+    messagingSenderId: "352536740700",
+    appId: "1:352536740700:web:367340a615b35f42f9f799",
+    measurementId: "G-26N9GY8TSK"
 };
 
 // Initialize Firebase
