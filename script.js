@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <img class="before" src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b" alt="Before VFX 4">
                                     <img class="after" src="https://images.unsplash.com/photo-1538370965046-79c0d6907d47" alt="After VFX 4">
                                     <div class="slider-handle">|</div>
-                                </div>
+                               >org</div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 4</h2>
                                     <p>Urban shot with VFX overlay.</p>
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateActiveNav(page) {
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('data-page') === page) {
+            if (link.getAttribute('data-page') === page && !link.classList.contains('logo-link')) {
                 link.classList.add('active');
             }
         });
