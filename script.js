@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const closeBtn = document.querySelector('.close');
     const prevBtn = document.querySelector('.prev');
     const nextBtn = document.querySelector('.next');
-    const fullscreenBtn = document.querySelector('.fullscreen-btn');
     const loader = document.getElementById('loader');
     let currentIndex = 0;
 
@@ -215,7 +214,6 @@ document.addEventListener("DOMContentLoaded", function() {
         closeBtn.addEventListener('click', closeModal);
         prevBtn.addEventListener('click', () => changeImage(-1));
         nextBtn.addEventListener('click', () => changeImage(1));
-        fullscreenBtn.addEventListener('click', toggleFullscreen);
 
         document.addEventListener('keydown', (e) => {
             if (modal.classList.contains('active')) {
@@ -227,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function openModal(image, index) {
-        modal.classList.add('active', 'fullscreen');
+        modal.classList.add('active');
         modal.setAttribute('aria-hidden', 'false');
         modalImg.src = image.src;
         captionText.textContent = image.getAttribute('data-description') || image.alt;
@@ -238,36 +236,34 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function closeModal() {
-        modal.classList.remove('active', 'fullscreen');
-        modalImg.classList.remove('scaling');
+        modal.classList.remove('active');
+        modalImg.classList.remove('scaling', 'sliding');
         modal.setAttribute('aria-hidden', 'true');
     }
 
     function changeImage(n) {
         const images = document.querySelectorAll('.portfolio-gallery img');
-        currentIndex = (currentIndex + n + images.length) % images.length;
-        const img = images[currentIndex];
+        const newIndex = (currentIndex + n + images.length) % images.length;
+        const img = images[newIndex];
+        
+        // Apply slide animation based on direction
+        modalImg.classList.remove('sliding');
+        void modalImg.offsetWidth; // Trigger reflow
+        modalImg.classList.add('sliding');
+        modalImg.style.animationName = n > 0 ? 'slideInRight' : 'slideInLeft';
+        
         modalImg.src = img.src;
         captionText.textContent = img.getAttribute('data-description') || img.alt;
+        currentIndex = newIndex;
         updateNavButtons();
+        
+        setTimeout(() => modalImg.classList.remove('sliding'), 500); // Match animation duration
     }
 
     function updateNavButtons() {
         const images = document.querySelectorAll('.portfolio-gallery img');
         prevBtn.style.display = images.length > 1 ? 'block' : 'none';
         nextBtn.style.display = images.length > 1 ? 'block' : 'none';
-    }
-
-    function toggleFullscreen() {
-        if (modal.classList.contains('fullscreen')) {
-            modal.classList.remove('fullscreen');
-            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-        } else {
-            modal.classList.add('fullscreen');
-            fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
-        }
-        modalImg.classList.add('scaling');
-        setTimeout(() => modalImg.classList.remove('scaling'), 300);
     }
 
     function initializeContact() {
