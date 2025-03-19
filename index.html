@@ -9,6 +9,7 @@
     <title>Ravikanth | VFX Compositor</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="sticky-header">
@@ -50,6 +51,18 @@
         </div>
         <span class="prev" aria-label="Previous image">❮</span>
         <span class="next" aria-label="Next image">❯</span>
+    </div>
+
+    <div id="slider-modal" class="slider-modal" role="dialog" aria-hidden="true">
+        <span class="close" aria-label="Close modal">×</span>
+        <div class="slider-modal-content">
+            <img class="slider-before" alt="Before VFX">
+            <img class="slider-after" alt="After VFX">
+            <div class="slider-divider"></div>
+            <div id="slider-caption" class="slider-description" aria-live="polite"></div>
+        </div>
+        <span class="prev" aria-label="Previous slider">❮</span>
+        <span class="next" aria-label="Next slider">❯</span>
     </div>
 
     <script src="script.js"></script>
