@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <div class="breakdowns-container">
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Before VFX 1">
-                                    <img class="after" src="https://images.unsplash.com/photo-1600585154526-990dced4363a" alt="After VFX 1">
+                                    <img class="after" src="src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0" alt="After VFX 1">
                                     <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0" alt="Before VFX 2">
-                                    <img class="after" src="https://images.unsplash.com/photo-1518837695005-208458ced5b6" alt="After VFX 2">
+                                    <img class="after" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="After VFX 2">
                                     <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 </div>
 
                                 <div class="slider-container">
-                                    <img class="before" src="https://images.unsplash.com/photo-1472214103451-9374a3b6e3d8" alt="Before VFX 3">
+                                    <img class="before" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Before VFX 3">
                                     <img class="after" src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="After VFX 3">
                                     <div class="slider-divider"></div>
                                 </div>
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                                 <div class="slider-container">
                                     <img class="before" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Before VFX 5">
-                                    <img class="after" src="https://images.unsplash.com/photo-1519750783828-1e2051123958" alt="After VFX 5">
+                                    <img class="after" src="https://images.unsplash.com/photo-1538370965046-79c0d6907d47" alt="After VFX 5">
                                     <div class="slider-divider"></div>
                                 </div>
                                 <div class="slider-description">
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 </div>
 
                                 <div class="slider-container">
-                                    <img class="before" src="https://images.unsplash.com/photo-1519125323398-675f398f6978" alt="Before VFX 6">
+                                    <img class="before" src="https://images.unsplash.com/photo-1538370965046-79c0d6907d47" alt="Before VFX 6">
                                     <img class="after" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab" alt="After VFX 6">
                                     <div class="slider-divider"></div>
                                 </div>
