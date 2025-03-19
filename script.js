@@ -70,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <img class="before" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Before VFX 1">
                                     <img class="after" src="https://images.unsplash.com/photo-1600585154526-990dced4363a" alt="After VFX 1">
                                     <div class="slider-divider"></div>
+                                    <span class="maximize" aria-label="Maximize slider">⤢</span>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 1</h2>
@@ -80,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <img class="before" src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0" alt="Before VFX 2">
                                     <img class="after" src="https://images.unsplash.com/photo-1518837695005-208458ced5b6" alt="After VFX 2">
                                     <div class="slider-divider"></div>
+                                    <span class="maximize" aria-label="Maximize slider">⤢</span>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 2</h2>
@@ -90,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <img class="before" src="https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg" alt="Before VFX 3">
                                     <img class="after" src="https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg" alt="After VFX 3">
                                     <div class="slider-divider"></div>
+                                    <span class="maximize" aria-label="Maximize slider">⤢</span>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 3</h2>
@@ -100,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <img class="before" src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b" alt="Before VFX 4">
                                     <img class="after" src="https://images.unsplash.com/photo-1538370965046-79c0d6907d47" alt="After VFX 4">
                                     <div class="slider-divider"></div>
+                                    <span class="maximize" aria-label="Maximize slider">⤢</span>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 4</h2>
@@ -110,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <img class="before" src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg" alt="Before VFX 5">
                                     <img class="after" src="https://images.pexels.com/photos/34950/pexels-photo.jpg" alt="After VFX 5">
                                     <div class="slider-divider"></div>
+                                    <span class="maximize" aria-label="Maximize slider">⤢</span>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 5</h2>
@@ -120,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <img class="before" src="https://images.unsplash.com/photo-1519125323398-675f398f6978" alt="Before VFX 6">
                                     <img class="after" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab" alt="After VFX 6">
                                     <div class="slider-divider"></div>
+                                    <span class="maximize" aria-label="Maximize slider">⤢</span>
                                 </div>
                                 <div class="slider-description">
                                     <h2>VFX Breakdown 6</h2>
@@ -303,10 +309,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function closeImageModal() {
-        imageModal.classList.remove('active');
-        modalImg.classList.remove('scaling', 'settle');
-        imageModal.setAttribute('aria-hidden', 'true');
-        
         if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
@@ -316,6 +318,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.msExitFullscreen();
             }
         }
+        imageModal.classList.remove('active');
+        modalImg.classList.remove('scaling', 'settle');
+        imageModal.setAttribute('aria-hidden', 'true');
     }
 
     function changeImage(n) {
@@ -328,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function() {
             modalImg.src = img.src;
             captionText.textContent = img.getAttribute('data-description') || img.alt;
             modalImg.classList.remove('settle');
-        }, 500); // Match animation duration
+        }, 400); // Match animation duration
         updateImageNavButtons();
     }
 
@@ -339,9 +344,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function initializeSliderModal() {
-        const sliders = document.querySelectorAll('.slider-container');
-        sliders.forEach((slider, index) => {
-            slider.addEventListener('click', () => openSliderModal(index));
+        const maximizeButtons = document.querySelectorAll('.maximize');
+        maximizeButtons.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent slider drag from triggering
+                openSliderModal(index);
+            });
         });
 
         closeBtn[1].addEventListener('click', closeSliderModal);
@@ -388,9 +396,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function closeSliderModal() {
-        sliderModal.classList.remove('active');
-        sliderModal.setAttribute('aria-hidden', 'true');
-        
         if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
@@ -400,6 +405,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.msExitFullscreen();
             }
         }
+        sliderModal.classList.remove('active');
+        sliderModal.setAttribute('aria-hidden', 'true');
     }
 
     function changeSlider(n) {
@@ -416,7 +423,7 @@ document.addEventListener("DOMContentLoaded", function() {
             sliderBefore.classList.remove('settle');
             sliderAfter.classList.remove('settle');
             initializeSliderInModal();
-        }, 500); // Match animation duration
+        }, 400); // Match animation duration
         updateSliderNavButtons();
     }
 
