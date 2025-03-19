@@ -11,10 +11,10 @@ html {
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #141414, #282828);
-    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 0), radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
-    background-size: 20px 20px, 100% 100%;
-    color: #FFFFFF;
+    background: linear-gradient(135deg, #0A0A0A, #1E1E1E);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 0), radial-gradient(circle at center, rgba(0, 191, 255, 0.1) 0%, rgba(0, 0, 0, 0.9) 100%);
+    background-size: 25px 25px, 100% 100%;
+    color: #F5F5F5;
     line-height: 1.6;
     min-height: 100vh;
     display: flex;
@@ -25,11 +25,10 @@ body {
 .sticky-header {
     position: sticky;
     top: 0;
-    background: rgba(20, 20, 20, 0.95);
+    background: rgba(10, 10, 10, 0.95);
     padding: 0.5rem 1rem;
-    box-shadow: 0 2px 20px rgba(0, 191, 255, 0.4);
+    box-shadow: 0 2px 25px rgba(0, 191, 255, 0.5);
     z-index: 1000;
-    height: 80px;
 }
 
 .sticky-header nav ul {
@@ -39,7 +38,6 @@ body {
     gap: 1.5rem;
     justify-content: center;
     align-items: center;
-    height: 100%;
     max-width: 100%;
 }
 
@@ -48,6 +46,8 @@ body {
     text-decoration: none;
     font-family: 'Cinzel', serif;
     font-size: clamp(0.9rem, 2vw, 1.1rem);
+    font-weight: 700;
+    text-shadow: 0 1px 5px rgba(0, 191, 255, 0.5);
     transition: color 0.3s ease;
 }
 
@@ -126,7 +126,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     z-index: 2;
 }
 
@@ -142,15 +142,18 @@ body {
 .video-background h1 {
     font-family: 'Cinzel', serif;
     font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 700;
     color: #00BFFF;
-    text-shadow: 0 2px 8px rgba(0, 191, 255, 0.6);
+    text-shadow: 0 2px 10px rgba(0, 191, 255, 0.7);
     animation: fadeInUp 1s ease-in;
 }
 
 .video-background h2 {
     font-family: 'Cinzel', serif;
     font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
     color: #FFB300;
+    text-shadow: 0 2px 10px rgba(0, 191, 255, 0.7);
 }
 
 /* Video Gallery (My Work) */
@@ -169,7 +172,7 @@ body {
     aspect-ratio: 16 / 9;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 191, 255, 0.4);
+    box-shadow: 0 4px 25px rgba(0, 191, 255, 0.5);
     transition: transform 0.3s ease;
 }
 
@@ -189,6 +192,7 @@ body {
     flex-direction: column;
     gap: 3rem;
     padding: 2rem 0;
+    max-width: 100%;
 }
 
 .slider-container {
@@ -198,9 +202,9 @@ body {
     aspect-ratio: 16 / 9;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 191, 255, 0.4);
+    box-shadow: 0 4px 25px rgba(0, 191, 255, 0.5);
     margin: 0 auto;
-    cursor: pointer;
+    cursor: ew-resize;
     transition: transform 0.3s ease;
 }
 
@@ -236,6 +240,21 @@ body {
     box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
 }
 
+.slider-container .maximize {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #FFB300;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 4;
+    transition: color 0.3s ease;
+}
+
+.slider-container .maximize:hover {
+    color: #00BFFF;
+}
+
 /* Slider Modal */
 .slider-modal {
     display: none;
@@ -244,7 +263,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #141414;
+    background: #0A0A0A;
     z-index: 2000;
     align-items: center;
     justify-content: center;
@@ -260,16 +279,22 @@ body {
     height: 100%;
     max-width: 100vw;
     max-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .slider-modal-content img {
-    width: 100%;
-    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+    width: auto;
+    height: auto;
     display: block;
     object-fit: contain;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .slider-modal-content .slider-before {
@@ -293,7 +318,7 @@ body {
 
 .slider-modal-content .slider-before.settle,
 .slider-modal-content .slider-after.settle {
-    animation: settleDissolve 0.5s ease-in-out;
+    animation: settleFade 0.4s ease-in-out;
 }
 
 .slider-description {
@@ -305,12 +330,13 @@ body {
     font-family: 'Cinzel', serif;
     color: #00BFFF;
     font-size: 1.5rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
-    text-shadow: 0 1px 4px rgba(0, 191, 255, 0.5);
+    text-shadow: 0 1px 5px rgba(0, 191, 255, 0.5);
 }
 
 .slider-description p {
-    color: #FFFFFF;
+    color: #F5F5F5;
     font-size: 1rem;
 }
 
@@ -321,6 +347,7 @@ body {
     gap: 1.5rem;
     padding: 2rem;
     margin-top: 80px;
+    max-width: 100%;
 }
 
 .portfolio-gallery img {
@@ -328,7 +355,7 @@ body {
     height: 200px;
     object-fit: cover;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 191, 255, 0.4);
+    box-shadow: 0 4px 25px rgba(0, 191, 255, 0.5);
     transition: transform 0.3s ease, filter 0.3s ease;
     cursor: pointer;
 }
@@ -346,7 +373,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #141414;
+    background: #0A0A0A;
     z-index: 2000;
     align-items: center;
     justify-content: center;
@@ -359,6 +386,9 @@ body {
 .modal-content-container {
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
 }
 
@@ -376,15 +406,15 @@ body {
 }
 
 .modal-content.settle {
-    animation: settleDissolve 0.5s ease-in-out;
+    animation: settleFade 0.4s ease-in-out;
 }
 
 .modal-description {
-    color: #FFFFFF;
+    color: #F5F5F5;
     text-align: center;
     margin-top: 1rem;
     font-size: 1.2rem;
-    text-shadow: 0 1px 4px rgba(0, 191, 255, 0.5);
+    text-shadow: 0 1px 5px rgba(0, 191, 255, 0.5);
 }
 
 .close, .prev, .next {
@@ -432,7 +462,7 @@ body {
 .about-me-content .profile-picture {
     border-radius: 50%;
     max-width: 150px;
-    box-shadow: 0 4px 20px rgba(0, 191, 255, 0.4);
+    box-shadow: 0 4px 25px rgba(0, 191, 255, 0.5);
     transition: transform 0.3s ease;
 }
 
@@ -444,27 +474,28 @@ body {
     font-family: 'Cinzel', serif;
     color: #00BFFF;
     font-size: 2rem;
-    text-shadow: 0 2px 8px rgba(0, 191, 255, 0.6);
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 191, 255, 0.7);
 }
 
 .about-me-content p {
-    color: #FFFFFF;
+    color: #F5F5F5;
     max-width: 600px;
 }
 
 .download-resume-btn {
     background: linear-gradient(135deg, #00BFFF, #FFB300);
-    color: #141414;
+    color: #0A0A0A;
     padding: 0.75rem 1.5rem;
     border-radius: 5px;
     text-decoration: none;
-    box-shadow: 0 4px 15px rgba(0, 191, 255, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 191, 255, 0.5);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .download-resume-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 191, 255, 0.6);
+    box-shadow: 0 6px 25px rgba(0, 191, 255, 0.7);
 }
 
 /* Contact */
@@ -472,9 +503,9 @@ body {
     max-width: 700px;
     margin: 80px auto 2rem;
     padding: 2rem;
-    background: rgba(20, 20, 20, 0.9);
+    background: rgba(10, 10, 10, 0.9);
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 191, 255, 0.4);
+    box-shadow: 0 4px 25px rgba(0, 191, 255, 0.5);
     text-align: center;
 }
 
@@ -483,7 +514,8 @@ body {
     color: #00BFFF;
     margin-bottom: 2rem;
     font-size: 2.5rem;
-    text-shadow: 0 2px 8px rgba(0, 191, 255, 0.6);
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 191, 255, 0.7);
 }
 
 .contact-form form {
@@ -498,8 +530,8 @@ body {
     padding: 1rem;
     border: 1px solid #FFB300;
     border-radius: 5px;
-    background: #282828;
-    color: #FFFFFF;
+    background: #1E1E1E;
+    color: #F5F5F5;
     transition: border-color 0.3s ease;
 }
 
@@ -511,19 +543,19 @@ body {
 
 .contact-form button {
     background: linear-gradient(135deg, #00BFFF, #FFB300);
-    color: #141414;
+    color: #0A0A0A;
     padding: 1rem 2rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.1rem;
-    box-shadow: 0 4px 15px rgba(0, 191, 255, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 191, 255, 0.5);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contact-form button:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 191, 255, 0.6);
+    box-shadow: 0 6px 25px rgba(0, 191, 255, 0.7);
 }
 
 .contact-form .form-response {
@@ -534,7 +566,7 @@ body {
 
 /* Footer */
 footer {
-    background: rgba(20, 20, 20, 0.95);
+    background: rgba(10, 10, 10, 0.95);
     padding: 2rem;
     text-align: center;
     border-top: 1px solid #FFB300;
@@ -573,9 +605,8 @@ footer .social-icons a:hover {
     100% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes settleDissolve {
-    0% { transform: scale(1.05); opacity: 1; }
-    50% { transform: scale(1); opacity: 0; }
+@keyframes settleFade {
+    0% { transform: scale(1.05); opacity: 0.8; }
     100% { transform: scale(1); opacity: 1; }
 }
 
@@ -601,9 +632,8 @@ footer .social-icons a:hover {
         height: auto;
     }
     .sticky-header nav ul {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 0.8rem;
+        flex-direction: column;
+        gap: 0.5rem;
         padding: 0.5rem;
     }
     .video-background {
@@ -628,7 +658,7 @@ footer .social-icons a:hover {
 
 @media (max-width: 480px) {
     .sticky-header nav ul {
-        gap: 0.5rem;
+        gap: 0.3rem;
     }
     .video-background h1 {
         font-size: 2rem;
@@ -639,7 +669,7 @@ footer .social-icons a:hover {
     .portfolio-gallery {
         grid-template-columns: 1fr;
     }
-    .close, .prev, .next {
+    .close, .prev, .next, .maximize {
         font-size: 2rem;
     }
 }
