@@ -227,12 +227,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function openModal(image, index) {
-        modal.classList.add('active');
+        modal.classList.add('active', 'fullscreen');
         modal.setAttribute('aria-hidden', 'false');
         modalImg.src = image.src;
         captionText.textContent = image.getAttribute('data-description') || image.alt;
         currentIndex = index;
         updateNavButtons();
+        modalImg.classList.add('scaling');
+        setTimeout(() => modalImg.classList.remove('scaling'), 300);
     }
 
     function closeModal() {
@@ -257,9 +259,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function toggleFullscreen() {
-        modal.classList.toggle('fullscreen');
+        if (modal.classList.contains('fullscreen')) {
+            modal.classList.remove('fullscreen');
+            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+        } else {
+            modal.classList.add('fullscreen');
+            fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+        }
         modalImg.classList.add('scaling');
-        setTimeout(() => modalImg.classList.remove('scaling'), 300); // Match animation duration
+        setTimeout(() => modalImg.classList.remove('scaling'), 300);
     }
 
     function initializeContact() {
