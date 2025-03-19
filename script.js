@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const closeBtn = document.querySelector('.close');
     const prevBtn = document.querySelector('.prev');
     const nextBtn = document.querySelector('.next');
+    const fullscreenBtn = document.querySelector('.fullscreen-btn');
     const loader = document.getElementById('loader');
     let currentIndex = 0;
 
@@ -59,14 +60,66 @@ document.addEventListener("DOMContentLoaded", function() {
                         break;
                     case 'breakdowns':
                         resolve(`
-                            <div class="slider-container">
-                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Before VFX" loading="lazy">
-                                <div class="slider-overlay" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4363a');"></div>
-                                <div class="slider-handle">|</div>
-                            </div>
-                            <div class="content-description">
-                                <h2>VFX Breakdown</h2>
-                                <p>Before and after of a compositing project.</p>
+                            <div class="breakdowns-container">
+                                <div class="slider-container">
+                                    <img class="before" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Before VFX 1">
+                                    <img class="after" src="https://images.unsplash.com/photo-1600585154526-990dced4363a" alt="After VFX 1">
+                                    <div class="slider-handle">|</div>
+                                </div>
+                                <div class="slider-description">
+                                    <h2>VFX Breakdown 1</h2>
+                                    <p>Raw scene vs. enhanced composite.</p>
+                                </div>
+
+                                <div class="slider-container">
+                                    <img class="before" src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0" alt="Before VFX 2">
+                                    <img class="after" src="https://images.unsplash.com/photo-1518837695005-208458ced5b6" alt="After VFX 2">
+                                    <div class="slider-handle">|</div>
+                                </div>
+                                <div class="slider-description">
+                                    <h2>VFX Breakdown 2</h2>
+                                    <p>Cityscape before and after effects.</p>
+                                </div>
+
+                                <div class="slider-container">
+                                    <img class="before" src="https://images.unsplash.com/photo-1472214103451-9374a3b6e3d8" alt="Before VFX 3">
+                                    <img class="after" src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="After VFX 3">
+                                    <div class="slider-handle">|</div>
+                                </div>
+                                <div class="slider-description">
+                                    <h2>VFX Breakdown 3</h2>
+                                    <p>Nature scene with added elements.</p>
+                                </div>
+
+                                <div class="slider-container">
+                                    <img class="before" src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b" alt="Before VFX 4">
+                                    <img class="after" src="https://images.unsplash.com/photo-1538370965046-79c0d6907d47" alt="After VFX 4">
+                                    <div class="slider-handle">|</div>
+                                </div>
+                                <div class="slider-description">
+                                    <h2>VFX Breakdown 4</h2>
+                                    <p>Urban shot with VFX overlay.</p>
+                                </div>
+
+                                <div class="slider-container">
+                                    <img class="before" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Before VFX 5">
+                                    <img class="after" src="https://images.unsplash.com/photo-1519750783828-1e2051123958" alt="After VFX 5">
+                                    <div class="slider-handle">|</div>
+                                </div>
+                                <div class="slider-description">
+                                    <h2>VFX Breakdown 5</h2>
+                                    <p>Beach scene with digital enhancements.</p>
+                                </div>
+
+                                <div class="slider-container">
+                                    <img class="before" src="https://images.unsplash.com/photo-1519125323398-675f398f6978" alt="Before VFX 6">
+                                    <img class="after" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab" alt="After VFX 6">
+                                    <div class="slider-handle">|</div>
+                                </div>
+                                <div class="slider-description">
+                                    <h2>VFX Breakdown 6</h2>
+                                    <p>Abstract before and after.</p>
+                                </div>
                             </div>
                         `);
                         break;
@@ -114,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function initializePage(page) {
         switch (page) {
             case 'breakdowns':
-                initializeSlider();
+                initializeSliders();
                 break;
             case 'portfolio':
                 initializePortfolio();
@@ -142,55 +195,68 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    function initializeSlider() {
-        const container = document.querySelector('.slider-container');
-        const sliderHandle = container.querySelector('.slider-handle');
-        const sliderOverlay = container.querySelector('.slider-overlay');
+    function initializeSliders() {
+        document.querySelectorAll('.slider-container').forEach(container => {
+            const beforeImg = container.querySelector('.before');
+            const afterImg = container.querySelector('.after');
+            const sliderHandle = container.querySelector('.slider-handle');
+            let isDragging = false;
 
-        function updateSlider(x) {
-            const rect = container.getBoundingClientRect();
-            x = Math.max(rect.left, Math.min(x, rect.right));
-            const width = x - rect.left;
-            sliderHandle.style.left = `${width}px`;
-            sliderOverlay.style.width = `${width}px`;
-        }
+            function updateSlider(x) {
+                const rect = container.getBoundingClientRect();
+                x = Math.max(rect.left, Math.min(x, rect.right));
+                const width = x - rect.left;
+                sliderHandle.style.left = `${width}px`;
+                afterImg.style.clipPath = `inset(0 ${rect.width - width}px 0 0)`;
+            }
 
-        function setInitialPosition() {
-            const rect = container.getBoundingClientRect();
-            updateSlider(rect.left + rect.width / 2);
-        }
+            function setInitialPosition() {
+                const rect = container.getBoundingClientRect();
+                updateSlider(rect.left + rect.width / 2);
+            }
 
-        setInitialPosition();
+            setInitialPosition();
 
-        sliderHandle.addEventListener('mousedown', () => {
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
+            sliderHandle.addEventListener('mousedown', () => {
+                isDragging = true;
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            });
+
+            container.addEventListener('mousemove', (e) => {
+                if (!isDragging) updateSlider(e.pageX);
+            });
+
+            sliderHandle.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                isDragging = true;
+                document.addEventListener('touchmove', onTouchMove);
+                document.addEventListener('touchend', onTouchEnd);
+            });
+
+            function onMouseMove(e) {
+                if (isDragging) updateSlider(e.pageX);
+            }
+
+            function onMouseUp() {
+                isDragging = false;
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+
+            function onTouchMove(e) {
+                if (isDragging) {
+                    const touch = e.touches[0];
+                    updateSlider(touch.pageX);
+                }
+            }
+
+            function onTouchEnd() {
+                isDragging = false;
+                document.removeEventListener('touchmove', onTouchMove);
+                document.removeEventListener('touchend', onTouchEnd);
+            }
         });
-
-        sliderHandle.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            document.addEventListener('touchmove', onTouchMove);
-            document.addEventListener('touchend', onTouchEnd);
-        });
-
-        function onMouseMove(e) {
-            updateSlider(e.pageX);
-        }
-
-        function onMouseUp() {
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-        }
-
-        function onTouchMove(e) {
-            const touch = e.touches[0];
-            updateSlider(touch.pageX);
-        }
-
-        function onTouchEnd() {
-            document.removeEventListener('touchmove', onTouchMove);
-            document.removeEventListener('touchend', onTouchEnd);
-        }
     }
 
     function initializePortfolio() {
@@ -202,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function() {
         closeBtn.addEventListener('click', closeModal);
         prevBtn.addEventListener('click', () => changeImage(-1));
         nextBtn.addEventListener('click', () => changeImage(1));
-        modalImg.addEventListener('dblclick', toggleFullscreen);
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
 
         document.addEventListener('keydown', (e) => {
             if (modal.classList.contains('active')) {
