@@ -1,4 +1,8 @@
+console.log("Script loaded");
+
 document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOM fully loaded");
+
     // Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyAWXzsqC6BKxhQwHyLd6D4vsSskyq136yY",
@@ -27,10 +31,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const sliderDivider = document.querySelector('.slider-modal-content .slider-divider');
     const closeBtn = document.querySelectorAll('.close');
     const loader = document.getElementById('loader');
+    const mainContent = document.getElementById('main-content');
     let currentPortfolioIndex = 0;
 
     function loadPage(page) {
-        const mainContent = document.getElementById('main-content');
+        console.log("Loading page:", page);
         loader.style.display = 'block';
         mainContent.classList.remove('visible');
 
@@ -50,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function fetchContent(page) {
         return new Promise(resolve => {
+            console.log("Fetching content for:", page);
             setTimeout(() => {
                 switch (page) {
                     case 'home':
@@ -183,6 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function initializePage(page) {
+        console.log("Initializing page:", page);
         switch (page) {
             case 'breakdowns': initializeBreakdowns(); break;
             case 'portfolio': initializePortfolio(); break;
@@ -235,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
 
-        closeBtn[1].addEventListener('click', () => closeSliderModal());
+        closeBtn[1].addEventListener('click', closeSliderModal);
         document.addEventListener('keydown', e => {
             if (sliderModal.classList.contains('active') && e.key === 'Escape') closeSliderModal();
         });
@@ -251,7 +258,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function closeSliderModal() {
-        if (document.fullscreenElement) document.exitFullscreen();
         sliderModal.classList.remove('active');
         sliderModal.setAttribute('aria-hidden', 'true');
     }
@@ -308,7 +314,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function closeImageModal() {
-        if (document.fullscreenElement) document.exitFullscreen();
         imageModal.classList.remove('active');
         imageModal.setAttribute('aria-hidden', 'true');
     }
