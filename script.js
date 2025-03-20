@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error("12. Network error in contact form:", err);
                 response.textContent = 'Network error: ' + err.message;
             });
-        });
+        };
     }
 
     function initializeBreakdowns() {
