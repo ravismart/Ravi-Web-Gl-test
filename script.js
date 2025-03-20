@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("6. Content inserted into mainContent");
         loader.style.display = 'none';
         mainContent.classList.add('visible');
+        initializePage(page);
         updateActiveNav(page);
         console.log(`7. Page ${page} loaded successfully`);
     }
@@ -113,8 +114,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    function initializePage(page) {
+        console.log(`9. Initializing page: ${page}`);
+    }
+
     function updateActiveNav(page) {
-        console.log(`9. Updating nav for: ${page}`);
+        console.log(`10. Updating nav for: ${page}`);
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('data-page') === page && !link.classList.contains('logo-link')) {
@@ -127,11 +132,11 @@ document.addEventListener("DOMContentLoaded", function() {
         link.addEventListener('click', e => {
             e.preventDefault();
             const page = link.getAttribute('data-page');
-            console.log(`10. Nav clicked: ${page}`);
+            console.log(`11. Nav clicked: ${page}`);
             loadPage(page);
         });
     });
 
-    console.log("11. Calling loadPage('home')");
+    console.log("12. Calling loadPage('home')");
     loadPage('home');
 });
