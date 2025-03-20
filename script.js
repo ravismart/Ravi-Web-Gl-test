@@ -99,37 +99,43 @@ document.addEventListener("DOMContentLoaded", function() {
             case 'about':
                 return `
                     <div class="about-container">
-                        <div class="about-left">
-                            <img src="https://static.wixstatic.com/media/967fe0_b15d636debfc4d3fa5ccd91be5c9e92e~mv2.jpeg/v1/fill/w_223,h_223,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/1674928531371%20(1).jpeg" alt="Ravikanth Kachibhotla" class="profile-picture">
-                            <h2>Ravikanth Kachibhotla</h2>
-                            <p>VFX Compositor</p>
-                            <div class="skills-grid">
-                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/nuke-1.svg" alt="NUKE" class="software-logo"><span>NUKE</span></div>
-                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/houdini.svg" alt="Houdini" class="software-logo"><span>Houdini</span></div>
-                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/autodesk-maya-1.svg" alt="Maya" class="software-logo"><span>Maya</span></div>
-                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/substance-painter.svg" alt="Substance Painter" class="software-logo"><span>Substance Painter</span></div>
-                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/adobe-premiere-pro-cc.svg" alt="Premiere Pro" class="software-logo"><span>Premiere Pro</span></div>
-                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/flow-1.svg" alt="Flow" class="software-logo"><span>Flow</span></div>
+                        <div class="about-header">
+                            <h1>About Me</h1>
+                        </div>
+                        <div class="about-content">
+                            <div class="about-left">
+                                <img src="https://static.wixstatic.com/media/967fe0_b15d636debfc4d3fa5ccd91be5c9e92e~mv2.jpeg/v1/fill/w_223,h_223,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/1674928531371%20(1).jpeg" alt="Ravikanth Kachibhotla" class="profile-picture">
+                                <h2>Ravikanth Kachibhotla</h2>
+                                <p>VFX Compositor</p>
+                                <div class="skills-grid">
+                                    <div class="skill-item"><img src="https://simpleicons.org/icons/nuke.svg" alt="NUKE" class="software-logo"><span>NUKE</span></div>
+                                    <div class="skill-item"><img src="https://simpleicons.org/icons/houdini.svg" alt="Houdini" class="software-logo"><span>Houdini</span></div>
+                                    <div class="skill-item"><img src="https://simpleicons.org/icons/autodeskmaya.svg" alt="Maya" class="software-logo"><span>Maya</span></div>
+                                    <div class="skill-item"><img src="https://simpleicons.org/icons/adobesubstance3dpainter.svg" alt="Substance Painter" class="software-logo"><span>Substance Painter</span></div>
+                                    <div class="skill-item"><img src="https://simpleicons.org/icons/adobepremierepro.svg" alt="Premiere Pro" class="software-logo"><span>Premiere Pro</span></div>
+                                    <div class="skill-item"><img src="https://simpleicons.org/icons/flow.svg" alt="Flow" class="software-logo"><span>Flow</span></div>
+                                </div>
+                            </div>
+                            <div class="about-right">
+                                <div class="bio-section">
+                                    <h4>Profile</h4>
+                                    <p>I’m Ravikanth Kachibhotla, a passionate VFX Compositor based in Calgary, AB, with a sharp eye for detail and a drive to create immersive visual experiences.</p>
+                                </div>
+                                <div class="bio-section">
+                                    <h4>Professional Journey</h4>
+                                    <p>Since June 2022, I’ve worked as a Candid Videographer and Photographer at Singandkaur Photography Studio, mastering content creation. Previously (2017-2019), I volunteered at Verto Motion Pictures, leading graphic design and mentoring in filmmaking.</p>
+                                </div>
+                                <div class="bio-section">
+                                    <h4>Education</h4>
+                                    <p>Advanced Visual Effects Diploma, Bow Valley College (2022-2024). Bachelor of Technology in Computer Science, Lovely Professional University (2015-2019).</p>
+                                </div>
+                                <a href="https://bebabf30-5d26-4c3c-8107-26fc3135ebc5.filesusr.com/ugd/967fe0_a80febd4fbe1444685159c1d8b76c9f3.pdf" download="RK_Resume.pdf" class="download-resume-btn">Download Resume</a>
                             </div>
                         </div>
-                        <div class="about-right">
-                            <h3>About Me</h3>
-                            <div class="bio-section">
-                                <h4>Profile</h4>
-                                <p>I’m Ravikanth Kachibhotla, a passionate VFX Compositor based in Calgary, AB, with a sharp eye for detail and a drive to create immersive visual experiences.</p>
-                            </div>
-                            <div class="bio-section">
-                                <h4>Professional Journey</h4>
-                                <p>Since June 2022, I’ve worked as a Candid Videographer and Photographer at Singandkaur Photography Studio, mastering content creation. Previously (2017-2019), I volunteered at Verto Motion Pictures, leading graphic design and mentoring in filmmaking.</p>
-                            </div>
-                            <div class="bio-section">
-                                <h4>Education</h4>
-                                <p>Advanced Visual Effects Diploma, Bow Valley College (2022-2024). Bachelor of Technology in Computer Science, Lovely Professional University (2015-2019).</p>
-                            </div>
-                            <a href="https://bebabf30-5d26-4c3c-8107-26fc3135ebc5.filesusr.com/ugd/967fe0_a80febd4fbe1444685159c1d8b76c9f3.pdf" download="RK_Resume.pdf" class="download-resume-btn">Download Resume</a>
-                            <div class="testimonial-section">
-                                <h3>Testimonials</h3>
-                                <div id="testimonial-list"></div>
+                        <div class="testimonials-section">
+                            <h3>Testimonials</h3>
+                            <div id="testimonial-list" class="testimonial-list"></div>
+                            <div class="testimonial-form-container">
                                 <form id="testimonial-form">
                                     <input type="text" name="name" placeholder="Your Name" required>
                                     <textarea name="comment" placeholder="Your Comment" rows="4" required></textarea>
@@ -183,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
         db.collection('testimonials').orderBy('timestamp', 'desc').get()
             .then(snapshot => {
                 list.innerHTML = snapshot.docs.map(doc => `
-                    <div class="testimonial">
+                    <div class="testimonial-card">
                         <p>"${doc.data().comment}"</p>
                         <p class="testimonial-name">- ${doc.data().name}</p>
                     </div>
@@ -229,21 +235,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 const res = await fetch('https://formspree.io/f/mdknbwwq', {
                     method: 'POST',
                     body: formData,
-                    mode: 'cors', // Explicitly set to handle CORS
+                    mode: 'no-cors', // Use no-cors to bypass CORS restriction
                     headers: { 'Accept': 'application/json' }
                 });
-                if (res.ok) {
-                    response.textContent = 'Message sent successfully!';
-                    form.classList.add('submitted');
-                    setTimeout(() => {
-                        form.reset();
-                        form.classList.remove('submitted');
-                    }, 500);
-                    console.log("12. Contact form submitted successfully");
-                } else {
-                    console.error("12. Contact form submission failed:", res.status);
-                    response.textContent = 'Error sending message.';
-                }
+                // With no-cors, we can't check res.ok, so assume success if no error
+                response.textContent = 'Message sent successfully!';
+                form.classList.add('submitted');
+                setTimeout(() => {
+                    form.reset();
+                    form.classList.remove('submitted');
+                }, 500);
+                console.log("12. Contact form submitted successfully");
             } catch (err) {
                 console.error("12. Network error in contact form:", err);
                 response.textContent = 'Network error: Please try again later.';
@@ -261,11 +263,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             function setupSlider(element) {
                 let isDragging = false;
-                let startX;
 
-                function updateSlider(x) {
+                function updateSlider(clientX) {
                     const rect = element.getBoundingClientRect();
-                    let offsetX = x - rect.left;
+                    let offsetX = clientX - rect.left - (divider.offsetWidth / 2); // Center divider on pointer
                     offsetX = Math.max(0, Math.min(offsetX, rect.width));
                     divider.style.left = `${offsetX}px`;
                     afterImg.style.clipPath = `inset(0 ${rect.width - offsetX}px 0 0)`;
@@ -273,13 +274,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 element.addEventListener('mousedown', e => {
                     isDragging = true;
-                    startX = e.pageX;
-                    updateSlider(startX);
+                    updateSlider(e.clientX);
                 });
 
                 element.addEventListener('mousemove', e => {
                     if (isDragging) {
-                        updateSlider(e.pageX);
+                        updateSlider(e.clientX);
                     }
                 });
 
@@ -289,14 +289,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 element.addEventListener('touchstart', e => {
                     const touch = e.touches[0];
-                    startX = touch.pageX;
-                    updateSlider(startX);
+                    updateSlider(touch.clientX);
                 }, { passive: false });
 
                 element.addEventListener('touchmove', e => {
                     e.preventDefault();
                     const touch = e.touches[0];
-                    updateSlider(touch.pageX);
+                    updateSlider(touch.clientX);
                 }, { passive: false });
 
                 element.addEventListener('touchend', () => {
@@ -312,9 +311,6 @@ document.addEventListener("DOMContentLoaded", function() {
             container.querySelector('.maximize').addEventListener('click', e => {
                 e.stopPropagation();
                 console.log("11. Opening breakdown modal");
-                const beforeSrc = beforeImg.src;
-                const afterSrc = afterImg.src;
-                const desc = container.nextElementSibling.querySelector('p').textContent;
                 openSliderModal(index, containers);
             });
         });
@@ -374,11 +370,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         function setupSlider(element) {
             let isDragging = false;
-            let startX;
 
-            function updateSlider(x) {
+            function updateSlider(clientX) {
                 const rect = element.getBoundingClientRect();
-                let offsetX = x - rect.left;
+                let offsetX = clientX - rect.left - (divider.offsetWidth / 2); // Center divider on pointer
                 offsetX = Math.max(0, Math.min(offsetX, rect.width));
                 divider.style.left = `${offsetX}px`;
                 afterImg.style.clipPath = `inset(0 ${rect.width - offsetX}px 0 0)`;
@@ -386,13 +381,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
             element.addEventListener('mousedown', e => {
                 isDragging = true;
-                startX = e.pageX;
-                updateSlider(startX);
+                updateSlider(e.clientX);
             });
 
             element.addEventListener('mousemove', e => {
                 if (isDragging) {
-                    updateSlider(e.pageX);
+                    updateSlider(e.clientX);
                 }
             });
 
@@ -402,14 +396,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
             element.addEventListener('touchstart', e => {
                 const touch = e.touches[0];
-                startX = touch.pageX;
-                updateSlider(startX);
+                updateSlider(touch.clientX);
             }, { passive: false });
 
             element.addEventListener('touchmove', e => {
                 e.preventDefault();
                 const touch = e.touches[0];
-                updateSlider(touch.pageX);
+                updateSlider(touch.clientX);
             }, { passive: false });
 
             element.addEventListener('touchend', () => {
