@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
         measurementId: "G-26N9GY8TSK"
     };
 
-    // Initialize Firebase with error handling
     let db;
     try {
         firebase.initializeApp(firebaseConfig);
@@ -28,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const sliderDivider = document.querySelector('.slider-modal-content .slider-divider');
     const closeBtn = document.querySelectorAll('.close');
     const loader = document.getElementById('loader');
+    let currentPortfolioIndex = 0;
 
     function loadPage(page) {
         const mainContent = document.getElementById('main-content');
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                             <img class="before" src="https://picsum.photos/800/450?random=${i * 2 + 1}" alt="Before VFX ${i + 1}">
                                             <img class="after" src="https://picsum.photos/800/450?random=${i * 2 + 2}" alt="After VFX ${i + 1}">
                                             <div class="slider-bar"></div>
-                                            <button class="fullscreen-btn" aria-label="View in fullscreen">⤢</button>
+                                            <button class="fullscreen-btn" aria-label="Maximize slider">⤢</button>
                                         </div>
                                         <p>Breakdown ${i + 1}: Enhanced with VFX techniques.</p>
                                     </div>
@@ -143,19 +143,19 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <p>Since June 2022, I’ve been with Singandkaur Photography Studio as a Candid Videographer and Photographer, leading content creation with expertise in videography and lighting. From 2017 to 2019, I contributed to Verto Motion Pictures, designing graphics and capturing events while mentoring aspiring filmmakers.</p>
                                     <h4>Education</h4>
                                     <p>My Advanced Visual Effects Diploma from Bow Valley College (2022-2024) equipped me with hands-on compositing skills, while my B.Tech in Computer Science from Lovely Professional University (2015-2019) laid a strong technical foundation, including 3D game development.</p>
-                                    <div class="testimonials-section">
-                                        <h4>Testimonials</h4>
-                                        <div id="testimonial-list"></div>
-                                        <div class="testimonial-form">
-                                            <h5>Leave a Review</h5>
-                                            <form id="testimonial-form">
-                                                <input type="text" name="name" placeholder="Your Name" required>
-                                                <textarea name="comment" placeholder="Your Comment" required></textarea>
-                                                <button type="submit">Submit</button>
-                                            </form>
-                                            <div id="testimonial-response"></div>
-                                        </div>
-                                    </div>
+                                </div>
+                            </div>
+                            <div class="testimonials-section">
+                                <h4>Testimonials</h4>
+                                <div id="testimonial-list"></div>
+                                <div class="testimonial-form">
+                                    <h5>Leave a Review</h5>
+                                    <form id="testimonial-form">
+                                        <input type="text" name="name" placeholder="Your Name" required>
+                                        <textarea name="comment" placeholder="Your Comment" required></textarea>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                    <div id="testimonial-response"></div>
                                 </div>
                             </div>
                         `);
@@ -235,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
 
-        closeBtn[1].addEventListener('click', closeSliderModal);
+        closeBtn[1].addEventListener('click', () => closeSliderModal());
         document.addEventListener('keydown', e => {
             if (sliderModal.classList.contains('active') && e.key === 'Escape') closeSliderModal();
         });
@@ -248,14 +248,12 @@ document.addEventListener("DOMContentLoaded", function() {
         sliderModal.classList.add('active');
         sliderModal.setAttribute('aria-hidden', 'false');
         initializeSliderModal();
-        if (sliderModal.requestFullscreen) sliderModal.requestFullscreen();
     }
 
     function closeSliderModal() {
         if (document.fullscreenElement) document.exitFullscreen();
         sliderModal.classList.remove('active');
         sliderModal.setAttribute('aria-hidden', 'true');
-        loadPage('breakdowns');
     }
 
     function initializeSliderModal() {
@@ -281,31 +279,49 @@ document.addEventListener("DOMContentLoaded", function() {
     // Portfolio
     function initializePortfolio() {
         document.querySelectorAll('.portfolio-item').forEach(item => {
-            item.addEventListener('click', () => openImageModal(item.dataset.index));
+            item.addEventListener('click', () => {
+                currentPortfolioIndex = parseInt(item.dataset.index);
+                openImageModal(currentPortfolioIndex);
+            });
         });
 
         closeBtn[0].addEventListener('click', closeImageModal);
+        document.querySelector('.prev-btn').addEventListener('click', () => navigatePortfolio(-1));
+        document.querySelector('.next-btn').addEventListener('click', () => navigatePortfolio(1));
         document.addEventListener('keydown', e => {
-            if (imageModal.classList.contains('active') && e.key === 'Escape') closeImageModal();
+            if (imageModal.classList.contains('active')) {
+                if (e.key === 'Escape') closeImageModal();
+                if (e.key === 'ArrowLeft') navigatePortfolio(-1);
+                if (e.key === 'ArrowRight') navigatePortfolio(1);
+            }
         });
     }
 
     function openImageModal(index) {
         const img = document.querySelectorAll('.portfolio-item img')[index];
         modalImg.src = img.src;
+        modalImg.classList.remove('slide-in');
+        void modalImg.offsetWidth; // Trigger reflow
+        modalImg.classList.add('slide-in');
         imageModal.classList.add('active');
         imageModal.setAttribute('aria-hidden', 'false');
-        if (imageModal.requestFullscreen) imageModal.requestFullscreen();
     }
 
     function closeImageModal() {
         if (document.fullscreenElement) document.exitFullscreen();
         imageModal.classList.remove('active');
         imageModal.setAttribute('aria-hidden', 'true');
-        loadPage('portfolio');
     }
 
-    // About (with Testimonials)
+    function navigatePortfolio(direction) {
+        currentPortfolioIndex += direction;
+        const totalImages = document.querySelectorAll('.portfolio-item img').length;
+        if (currentPortfolioIndex < 0) currentPortfolioIndex = totalImages - 1;
+        if (currentPortfolioIndex >= totalImages) currentPortfolioIndex = 0;
+        openImageModal(currentPortfolioIndex);
+    }
+
+    // About
     function initializeAbout() {
         const form = document.getElementById('testimonial-form');
         const response = document.getElementById('testimonial-response');
@@ -374,15 +390,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             } catch (err) {
                 response.textContent = 'Network error: ' + err.message;
-            }
+            });
         });
     }
 
     // My Work
-    function initializeMyWork() {
-        // No additional JS needed; descriptions are static in HTML
-    }
+    function initializeMyWork() {}
 
-    // Load the home page immediately
     loadPage('home');
 });
