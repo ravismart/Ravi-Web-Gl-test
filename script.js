@@ -17,10 +17,12 @@ document.addEventListener("DOMContentLoaded", function() {
         mainContent.innerHTML = html;
         console.log("6. Content inserted into mainContent");
         loader.style.display = 'none';
-        mainContent.classList.add('visible');
-        initializePage(page);
-        updateActiveNav(page);
-        console.log(`7. Page ${page} loaded successfully`);
+        setTimeout(() => {
+            mainContent.classList.add('visible');
+            initializePage(page);
+            updateActiveNav(page);
+            console.log(`7. Page ${page} loaded successfully`);
+        }, 100); // Delay for cinematic fade
     }
 
     function fetchContent(page) {
@@ -54,6 +56,13 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <p>Created a seamless composite of CGI and live footage.</p>
                             </div>
                         </div>
+                        <div class="work-item">
+                            <iframe src="https://player.vimeo.com/video/1015033668?autoplay=1&muted=0&loop=1" frameborder="0" allow="autoplay; fullscreen" title="Reel Excerpt"></iframe>
+                            <div class="work-description">
+                                <h3>Reel Excerpt</h3>
+                                <p>Showcase of dynamic compositing work.</p>
+                            </div>
+                        </div>
                     </div>
                 `;
             case 'breakdowns':
@@ -64,9 +73,27 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <img class="before" src="https://picsum.photos/800/450?random=1" alt="Before VFX 1">
                                 <img class="after" src="https://picsum.photos/800/450?random=2" alt="After VFX 1">
                                 <div class="slider-bar"></div>
-                                <button class="fullscreen-btn" aria-label="Maximize slider">⤢</button>
+                                <button class="fullscreen-btn" aria-label="Full screen">⤢</button>
                             </div>
                             <p>Breakdown 1: Enhanced with VFX techniques.</p>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="slider-container" data-index="1">
+                                <img class="before" src="https://picsum.photos/800/450?random=3" alt="Before VFX 2">
+                                <img class="after" src="https://picsum.photos/800/450?random=4" alt="After VFX 2">
+                                <div class="slider-bar"></div>
+                                <button class="fullscreen-btn" aria-label="Full screen">⤢</button>
+                            </div>
+                            <p>Breakdown 2: CGI integration.</p>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="slider-container" data-index="2">
+                                <img class="before" src="https://picsum.photos/800/450?random=5" alt="Before VFX 3">
+                                <img class="after" src="https://picsum.photos/800/450?random=6" alt="After VFX 3">
+                                <div class="slider-bar"></div>
+                                <button class="fullscreen-btn" aria-label="Full screen">⤢</button>
+                            </div>
+                            <p>Breakdown 3: Lighting and compositing.</p>
                         </div>
                     </div>
                 `;
@@ -79,31 +106,57 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="portfolio-item" data-index="1">
                             <img src="https://picsum.photos/800/450?random=2" alt="Portfolio 2" loading="lazy">
                         </div>
+                        <div class="portfolio-item" data-index="2">
+                            <img src="https://picsum.photos/800/450?random=3" alt="Portfolio 3" loading="lazy">
+                        </div>
                     </div>
                 `;
             case 'about':
                 return `
                     <div class="about-container">
-                        <h2>About Me</h2>
-                        <p>I’m a dedicated VFX Compositor based in Calgary, AB.</p>
-                        <div id="testimonial-list"></div>
-                        <form id="testimonial-form">
-                            <input type="text" name="name" placeholder="Your Name" required>
-                            <textarea name="comment" placeholder="Your Comment" required></textarea>
-                            <button type="submit">Submit</button>
-                        </form>
-                        <div id="testimonial-response"></div>
+                        <div class="resume-section">
+                            <h1>Ravikanth Kachibhotla</h1>
+                            <h2>VFX Compositor | Calgary, AB</h2>
+                            <p>A passionate VFX artist with expertise in compositing, CGI integration, and cinematic storytelling. Based in Calgary, I bring visual effects to life with a keen eye for detail and a love for creative challenges.</p>
+                            <h3>Skills</h3>
+                            <ul>
+                                <li>Nuke</li>
+                                <li>After Effects</li>
+                                <li>Blender</li>
+                                <li>Photoshop</li>
+                            </ul>
+                            <h3>Experience</h3>
+                            <p>Freelance VFX Compositor (2018-Present): Delivered high-quality composites for films and commercials.</p>
+                        </div>
+                        <div class="testimonial-section">
+                            <h3>Testimonials</h3>
+                            <div id="testimonial-list"></div>
+                            <form id="testimonial-form">
+                                <input type="text" name="name" placeholder="Your Name" required>
+                                <textarea name="comment" placeholder="Your Comment" required></textarea>
+                                <button type="submit">Submit</button>
+                            </form>
+                            <div id="testimonial-response"></div>
+                        </div>
                     </div>
                 `;
             case 'contact':
                 return `
                     <div class="contact-container">
-                        <h2>Contact Me</h2>
+                        <h1>Contact Me</h1>
                         <form id="contact-form">
-                            <input type="text" name="name" placeholder="Your Name" required>
-                            <input type="email" name="email" placeholder="Your Email" required>
-                            <input type="text" name="subject" placeholder="Subject" required>
-                            <textarea name="message" placeholder="Your Message" required></textarea>
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="subject" placeholder="Subject" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Your Message" required></textarea>
+                            </div>
                             <button type="submit">Send Message</button>
                         </form>
                         <div id="contact-response"></div>
@@ -187,7 +240,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
                 if (res.ok) {
                     response.textContent = 'Message sent successfully!';
-                    form.reset();
+                    form.classList.add('submitted');
+                    setTimeout(() => form.reset(), 500);
                     console.log("12. Contact form submitted successfully");
                 } else {
                     console.error("12. Contact form submission failed:", res.status);
@@ -196,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function() {
             } catch (err) {
                 console.error("12. Network error in contact form:", err);
                 response.textContent = 'Network error: ' + err.message;
-            };
+            }
         });
     }
 
@@ -205,38 +259,37 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll('.slider-container').forEach(slider => {
             slider.addEventListener('click', () => {
                 console.log("11. Opening breakdown modal");
+                const index = slider.getAttribute('data-index');
                 const beforeSrc = slider.querySelector('.before').src;
                 const afterSrc = slider.querySelector('.after').src;
                 openModal(`
-                    <div class="modal-slider">
+                    <div class="modal-slider" data-index="${index}">
                         <img class="before" src="${beforeSrc}" alt="Before VFX">
                         <img class="after" src="${afterSrc}" alt="After VFX">
                         <div class="slider-bar"></div>
                     </div>
-                `);
+                `, 'breakdown');
             });
         });
     }
 
     function initializePortfolio() {
         console.log("10. Initializing Portfolio page");
-        document.querySelectorAll('.portfolio-item').forEach(item => {
+        const items = document.querySelectorAll('.portfolio-item');
+        items.forEach((item, index) => {
             item.addEventListener('click', () => {
                 console.log("11. Opening portfolio modal");
-                const imgSrc = item.querySelector('img').src;
-                openModal(`
-                    <img src="${imgSrc}" alt="Portfolio Image" class="modal-image">
-                `);
+                openPortfolioModal(index, items);
             });
         });
     }
 
-    function openModal(content) {
+    function openModal(content, type = '') {
         const modal = document.createElement('div');
-        modal.classList.add('modal');
+        modal.classList.add('modal', `modal-${type}`);
         modal.innerHTML = `
             <div class="modal-content">
-                <span class="modal-close">&times;</span>
+                <span class="modal-close">×</span>
                 ${content}
             </div>
         `;
@@ -254,6 +307,93 @@ document.addEventListener("DOMContentLoaded", function() {
                 modal.remove();
             }
         });
+
+        modal.classList.add('open');
+    }
+
+    function openPortfolioModal(currentIndex, items) {
+        const total = items.length;
+        const updateModal = (index) => {
+            const imgSrc = items[index].querySelector('img').src;
+            return `
+                <div class="modal-portfolio" data-index="${index}">
+                    <button class="modal-prev ${index === 0 ? 'disabled' : ''}">&#10094;</button>
+                    <img src="${imgSrc}" alt="Portfolio Image" class="modal-image">
+                    <button class="modal-next ${index === total - 1 ? 'disabled' : ''}">&#10095;</button>
+                </div>
+            `;
+        };
+
+        const modal = document.createElement('div');
+        modal.classList.add('modal', 'modal-portfolio');
+        modal.innerHTML = `
+            <div class="modal-content">
+                <span class="modal-close">×</span>
+                ${updateModal(currentIndex)}
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        const closeModal = () => {
+            console.log("12. Closing modal");
+            modal.remove();
+        };
+
+        modal.querySelector('.modal-close').addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        const prevBtn = modal.querySelector('.modal-prev');
+        const nextBtn = modal.querySelector('.modal-next');
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
+                rebindButtons();
+            }
+        });
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < total - 1) {
+                currentIndex++;
+                modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
+                rebindButtons();
+            }
+        });
+
+        function rebindButtons() {
+            modal.querySelector('.modal-close').addEventListener('click', closeModal);
+            modal.querySelector('.modal-prev').addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
+                    rebindButtons();
+                }
+            });
+            modal.querySelector('.modal-next').addEventListener('click', () => {
+                if (currentIndex < total - 1) {
+                    currentIndex++;
+                    modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
+                    rebindButtons();
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                currentIndex--;
+                modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
+                rebindButtons();
+            } else if (e.key === 'ArrowRight' && currentIndex < total - 1) {
+                currentIndex++;
+                modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
+                rebindButtons();
+            } else if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        modal.classList.add('open');
     }
 
     function updateActiveNav(page) {
