@@ -3,86 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ravikanth Kachibhotla - VFX Compositor Portfolio">
-    <meta name="keywords" content="VFX, Compositing, Ravikanth Kachibhotla">
-    <meta name="author" content="Ravikanth Kachibhotla">
-    <title>Ravikanth | VFX Compositor</title>
+    <title>Ravikanth Kachibhotla - VFX Compositor</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="sticky-header">
-        <nav>
-            <ul>
-                <li><a href="#" data-page="home" aria-label="Home" class="nav-link logo-link"><img src="https://i.postimg.cc/bwnMbgyX/RAvi-Logo.png" alt="Ravi VFX Logo" class="logo-img"></a></li>
-                <li><a href="#" data-page="home" class="nav-link">Home</a></li>
-                <li><a href="#" data-page="mywork" class="nav-link">My Work</a></li>
-                <li><a href="#" data-page="breakdowns" class="nav-link">Breakdowns</a></li>
-                <li><a href="#" data-page="portfolio" class="nav-link">Portfolio</a></li>
-                <li><a href="#" data-page="about" class="nav-link">About</a></li>
-                <li><a href="#" data-page="contact" class="nav-link">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="loader" class="loader"></div>
-    </header>
-
-    <main id="main-content" class="fade-in"></main>
-
-    <footer>
-        <div class="info">
-            <p>Info</p>
-            <p>klnvsairavikanth@gmail.com | Calgary, AB | 825-882-4553</p>
-            <div class="social-icons">
-                <a href="https://www.linkedin.com/in/ravikanth-kachibhotla/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.youtube.com/channel/UC4tb7jFq1hOsxrRxsv8ISZw" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.instagram.com/_konaseema_kurrodu/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="mailto:klnvsairavikanth@gmail.com" aria-label="Mail"><i class="fas fa-envelope"></i></a>
-            </div>
-            <p>© 2025 Ravikanth Kachibhotla | Visual Effects Compositor</p>
-        </div>
-    </footer>
-
-    <div id="image-modal" class="image-modal" role="dialog" aria-labelledby="modal-image" aria-hidden="true">
-        <span class="close" aria-label="Close modal">×</span>
-        <img class="modal-content" id="modal-image" alt="Enlarged portfolio image">
-        <button class="prev-btn" aria-label="Previous image">❮</button>
-        <button class="next-btn" aria-label="Next image">❯</button>
-    </div>
-
-    <div id="slider-modal" class="slider-modal" role="dialog" aria-hidden="true">
-        <span class="close" aria-label="Close modal">×</span>
-        <div class="slider-modal-content">
-            <img class="slider-before" alt="Before VFX">
-            <img class="slider-after" alt="After VFX">
-            <div class="slider-divider"></div>
-        </div>
-    </div>
-
-<!-- Firebase Modular Imports -->
-<script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-    import { getFirestore, collection, getDocs, addDoc, orderBy, query, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyAWXzsqC6BKxhQwHyLd6D4vsSskyq136yY",
-        authDomain: "ravi-vfx-portfolio.firebaseapp.com",
-        projectId: "ravi-vfx-portfolio",
-        storageBucket: "ravi-vfx-portfolio.firebasestorage.app",
-        messagingSenderId: "352536740700",
-        appId: "1:352536740700:web:367340a615b35f42f9f799",
-        measurementId: "G-26N9GY8TSK"
-    };
-
-    try {
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        window.firebase = { app, db, collection, getDocs, addDoc, orderBy, query, serverTimestamp };
+    <nav>
+        <a href="#" class="nav-link logo-link" data-page="home">Ravi VFX</a>
+        <a href="#" class="nav-link" data-page="mywork">My Work</a>
+        <a href="#" class="nav-link" data-page="breakdowns">Breakdowns</a>
+        <a href="#" class="nav-link" data-page="portfolio">Portfolio</a>
+        <a href="#" class="nav-link" data-page="about">About</a>
+        <a href="#" class="nav-link" data-page="contact">Contact</a>
+    </nav>
+    <div id="loader">Loading...</div>
+    <div id="main-content"></div>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script>
+        const firebaseConfig = { /* Your Firebase config */ };
+        firebase.initializeApp(firebaseConfig);
+        window.firebase = {
+            db: firebase.firestore(),
+            collection: firebase.firestore().collection,
+            getDocs: firebase.firestore().getDocs,
+            addDoc: firebase.firestore().addDoc,
+            orderBy: firebase.firestore.FieldPath.orderBy,
+            query: firebase.firestore().query,
+            serverTimestamp: firebase.firestore.FieldValue.serverTimestamp
+        };
         console.log("Firebase module loaded and initialized");
-    } catch (err) {
-        console.error("Firebase module initialization failed:", err);
-    }
-</script>
-<script src="script.js"></script>
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>
