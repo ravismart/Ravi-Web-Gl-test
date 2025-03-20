@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
             initializePage(page);
             updateActiveNav(page);
             console.log(`7. Page ${page} loaded successfully`);
-        }, 100); // Delay for cinematic fade
+        }, 100); // Slight delay for fade-in
     }
 
     function fetchContent(page) {
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
             case 'home':
                 return `
                     <div class="video-background">
-                        <iframe src="https://player.vimeo.com/video/1015033668?autoplay=1&muted=1&loop=1&background=1" frameborder="0" allow="autoplay; fullscreen" title="Ravikanth Compositing Reel 2024"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1015033668?autoplay=1&muted=1&loop=1&background=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" title="Ravikanth Compositing Reel 2024"></iframe>
                         <div class="overlay"></div>
                         <div class="content">
                             <h1>VFX Compositor</h1>
@@ -41,125 +41,117 @@ document.addEventListener("DOMContentLoaded", function() {
                 `;
             case 'mywork':
                 return `
-                    <div class="work-gallery">
-                        <div class="work-item">
-                            <iframe src="https://player.vimeo.com/video/1018839925?autoplay=1&muted=0&loop=1" frameborder="0" allow="autoplay; fullscreen" title="Shot 0080 Final Comp"></iframe>
-                            <div class="work-description">
-                                <h3>Shot 0080 Final Comp</h3>
-                                <p>Integrated complex VFX elements into live-action footage.</p>
-                            </div>
+                    <div class="video-gallery">
+                        <div class="video-box">
+                            <iframe src="https://player.vimeo.com/video/1018839925?autoplay=1&muted=0&loop=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" title="Shot 0080 Final Comp"></iframe>
+                            <p>Integrated complex VFX elements into live-action footage.</p>
                         </div>
-                        <div class="work-item">
-                            <iframe src="https://player.vimeo.com/video/1018840035?autoplay=1&muted=0&loop=1" frameborder="0" allow="autoplay; fullscreen" title="Shot 0090 Final Comp"></iframe>
-                            <div class="work-description">
-                                <h3>Shot 0090 Final Comp</h3>
-                                <p>Created a seamless composite of CGI and live footage.</p>
-                            </div>
+                        <div class="video-box">
+                            <iframe src="https://player.vimeo.com/video/1018840035?autoplay=1&muted=0&loop=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" title="Shot 0090 Final Comp"></iframe>
+                            <p>Created a seamless composite of CGI and live footage.</p>
                         </div>
-                        <div class="work-item">
-                            <iframe src="https://player.vimeo.com/video/1015033668?autoplay=1&muted=0&loop=1" frameborder="0" allow="autoplay; fullscreen" title="Reel Excerpt"></iframe>
-                            <div class="work-description">
-                                <h3>Reel Excerpt</h3>
-                                <p>Showcase of dynamic compositing work.</p>
-                            </div>
+                        <div class="video-box">
+                            <iframe src="https://player.vimeo.com/video/1018843740?autoplay=1&muted=0&loop=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" title="Reel Excerpt"></iframe>
+                            <p>Dynamic compositing showcase.</p>
                         </div>
                     </div>
                 `;
             case 'breakdowns':
                 return `
                     <div class="breakdowns-container">
-                        <div class="breakdown-item">
-                            <div class="slider-container" data-index="0">
-                                <img class="before" src="https://picsum.photos/800/450?random=1" alt="Before VFX 1">
-                                <img class="after" src="https://picsum.photos/800/450?random=2" alt="After VFX 1">
-                                <div class="slider-bar"></div>
-                                <button class="fullscreen-btn" aria-label="Full screen">⤢</button>
-                            </div>
-                            <p>Breakdown 1: Enhanced with VFX techniques.</p>
+                        <div class="slider-container" data-index="0">
+                            <img class="before" src="https://picsum.photos/800/450?random=1" alt="Before VFX 1">
+                            <img class="after" src="https://picsum.photos/800/450?random=2" alt="After VFX 1">
+                            <div class="slider-divider"></div>
+                            <span class="maximize" aria-label="Maximize slider">⤢</span>
                         </div>
-                        <div class="breakdown-item">
-                            <div class="slider-container" data-index="1">
-                                <img class="before" src="https://picsum.photos/800/450?random=3" alt="Before VFX 2">
-                                <img class="after" src="https://picsum.photos/800/450?random=4" alt="After VFX 2">
-                                <div class="slider-bar"></div>
-                                <button class="fullscreen-btn" aria-label="Full screen">⤢</button>
-                            </div>
-                            <p>Breakdown 2: CGI integration.</p>
+                        <div class="slider-description"><p>Breakdown 1: Enhanced with VFX techniques.</p></div>
+                        <div class="slider-container" data-index="1">
+                            <img class="before" src="https://picsum.photos/800/450?random=3" alt="Before VFX 2">
+                            <img class="after" src="https://picsum.photos/800/450?random=4" alt="After VFX 2">
+                            <div class="slider-divider"></div>
+                            <span class="maximize" aria-label="Maximize slider">⤢</span>
                         </div>
-                        <div class="breakdown-item">
-                            <div class="slider-container" data-index="2">
-                                <img class="before" src="https://picsum.photos/800/450?random=5" alt="Before VFX 3">
-                                <img class="after" src="https://picsum.photos/800/450?random=6" alt="After VFX 3">
-                                <div class="slider-bar"></div>
-                                <button class="fullscreen-btn" aria-label="Full screen">⤢</button>
-                            </div>
-                            <p>Breakdown 3: Lighting and compositing.</p>
+                        <div class="slider-description"><p>Breakdown 2: CGI integration.</p></div>
+                        <div class="slider-container" data-index="2">
+                            <img class="before" src="https://picsum.photos/800/450?random=5" alt="Before VFX 3">
+                            <img class="after" src="https://picsum.photos/800/450?random=6" alt="After VFX 3">
+                            <div class="slider-divider"></div>
+                            <span class="maximize" aria-label="Maximize slider">⤢</span>
                         </div>
+                        <div class="slider-description"><p>Breakdown 3: Lighting and compositing.</p></div>
                     </div>
                 `;
             case 'portfolio':
                 return `
-                    <div class="portfolio-container">
+                    <div class="portfolio-gallery">
                         <div class="portfolio-item" data-index="0">
-                            <img src="https://picsum.photos/800/450?random=1" alt="Portfolio 1" loading="lazy">
+                            <img src="https://picsum.photos/800/450?random=1" alt="VFX Project 1" data-description="Project 1: Cinematic composite">
                         </div>
                         <div class="portfolio-item" data-index="1">
-                            <img src="https://picsum.photos/800/450?random=2" alt="Portfolio 2" loading="lazy">
+                            <img src="https://picsum.photos/800/450?random=2" alt="VFX Project 2" data-description="Project 2: CGI integration">
                         </div>
                         <div class="portfolio-item" data-index="2">
-                            <img src="https://picsum.photos/800/450?random=3" alt="Portfolio 3" loading="lazy">
+                            <img src="https://picsum.photos/800/450?random=3" alt="VFX Project 3" data-description="Project 3: Visual effects showcase">
                         </div>
                     </div>
                 `;
             case 'about':
                 return `
                     <div class="about-container">
-                        <div class="resume-section">
-                            <h1>Ravikanth Kachibhotla</h1>
-                            <h2>VFX Compositor | Calgary, AB</h2>
-                            <p>A passionate VFX artist with expertise in compositing, CGI integration, and cinematic storytelling. Based in Calgary, I bring visual effects to life with a keen eye for detail and a love for creative challenges.</p>
-                            <h3>Skills</h3>
-                            <ul>
-                                <li>Nuke</li>
-                                <li>After Effects</li>
-                                <li>Blender</li>
-                                <li>Photoshop</li>
-                            </ul>
-                            <h3>Experience</h3>
-                            <p>Freelance VFX Compositor (2018-Present): Delivered high-quality composites for films and commercials.</p>
+                        <div class="about-left">
+                            <img src="https://static.wixstatic.com/media/967fe0_b15d636debfc4d3fa5ccd91be5c9e92e~mv2.jpeg/v1/fill/w_223,h_223,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/1674928531371%20(1).jpeg" alt="Ravikanth Kachibhotla" class="profile-picture">
+                            <h2>Ravikanth Kachibhotla</h2>
+                            <p>VFX Compositor</p>
+                            <div class="skills-grid">
+                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/nuke-1.svg" alt="NUKE" class="software-logo"><span>NUKE</span></div>
+                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/houdini.svg" alt="Houdini" class="software-logo"><span>Houdini</span></div>
+                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/autodesk-maya-1.svg" alt="Maya" class="software-logo"><span>Maya</span></div>
+                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/substance-painter.svg" alt="Substance Painter" class="software-logo"><span>Substance Painter</span></div>
+                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/adobe-premiere-pro-cc.svg" alt="Premiere Pro" class="software-logo"><span>Premiere Pro</span></div>
+                                <div class="skill-item"><img src="https://cdn.worldvectorlogo.com/logos/flow-1.svg" alt="Flow" class="software-logo"><span>Flow</span></div>
+                            </div>
                         </div>
-                        <div class="testimonial-section">
-                            <h3>Testimonials</h3>
-                            <div id="testimonial-list"></div>
-                            <form id="testimonial-form">
-                                <input type="text" name="name" placeholder="Your Name" required>
-                                <textarea name="comment" placeholder="Your Comment" required></textarea>
-                                <button type="submit">Submit</button>
-                            </form>
-                            <div id="testimonial-response"></div>
+                        <div class="about-right">
+                            <h3>About Me</h3>
+                            <div class="bio-section">
+                                <h4>Profile</h4>
+                                <p>I’m Ravikanth Kachibhotla, a passionate VFX Compositor based in Calgary, AB, with a sharp eye for detail and a drive to create immersive visual experiences.</p>
+                            </div>
+                            <div class="bio-section">
+                                <h4>Professional Journey</h4>
+                                <p>Since June 2022, I’ve worked as a Candid Videographer and Photographer at Singandkaur Photography Studio, mastering content creation. Previously (2017-2019), I volunteered at Verto Motion Pictures, leading graphic design and mentoring in filmmaking.</p>
+                            </div>
+                            <div class="bio-section">
+                                <h4>Education</h4>
+                                <p>Advanced Visual Effects Diploma, Bow Valley College (2022-2024). Bachelor of Technology in Computer Science, Lovely Professional University (2015-2019).</p>
+                            </div>
+                            <a href="https://bebabf30-5d26-4c3c-8107-26fc3135ebc5.filesusr.com/ugd/967fe0_a80febd4fbe1444685159c1d8b76c9f3.pdf" download="RK_Resume.pdf" class="download-resume-btn">Download Resume</a>
+                            <div class="testimonial-section">
+                                <h3>Testimonials</h3>
+                                <div id="testimonial-list"></div>
+                                <form id="testimonial-form">
+                                    <input type="text" name="name" placeholder="Your Name" required>
+                                    <textarea name="comment" placeholder="Your Comment" rows="4" required></textarea>
+                                    <button type="submit">Submit Review</button>
+                                </form>
+                                <div id="testimonial-response" class="form-response"></div>
+                            </div>
                         </div>
                     </div>
                 `;
             case 'contact':
                 return `
-                    <div class="contact-container">
-                        <h1>Contact Me</h1>
+                    <div class="contact-form">
+                        <h2>Get in Touch</h2>
                         <form id="contact-form">
-                            <div class="form-group">
-                                <input type="text" name="name" placeholder="Your Name" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" name="email" placeholder="Your Email" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="subject" placeholder="Subject" required>
-                            </div>
-                            <div class="form-group">
-                                <textarea name="message" placeholder="Your Message" required></textarea>
-                            </div>
+                            <input type="text" name="name" placeholder="Your Name" required>
+                            <input type="email" name="email" placeholder="Your Email" required>
+                            <input type="text" name="subject" placeholder="Subject" required>
+                            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
                             <button type="submit">Send Message</button>
                         </form>
-                        <div id="contact-response"></div>
+                        <div id="contact-response" class="form-response"></div>
                     </div>
                 `;
             default:
@@ -193,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function() {
             list.innerHTML = snapshot.docs.map(doc => `
                 <div class="testimonial">
                     <p>"${doc.data().comment}"</p>
-                    <p>- ${doc.data().name}</p>
+                    <p class="testimonial-name">- ${doc.data().name}</p>
                 </div>
             `).join('');
             console.log("12. Testimonials loaded successfully");
@@ -241,7 +233,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (res.ok) {
                     response.textContent = 'Message sent successfully!';
                     form.classList.add('submitted');
-                    setTimeout(() => form.reset(), 500);
+                    setTimeout(() => {
+                        form.reset();
+                        form.classList.remove('submitted');
+                    }, 500);
                     console.log("12. Contact form submitted successfully");
                 } else {
                     console.error("12. Contact form submission failed:", res.status);
@@ -256,19 +251,56 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function initializeBreakdowns() {
         console.log("10. Initializing Breakdowns page");
-        document.querySelectorAll('.slider-container').forEach(slider => {
-            slider.addEventListener('click', () => {
+        document.querySelectorAll('.slider-container').forEach(container => {
+            const beforeImg = container.querySelector('.before');
+            const afterImg = container.querySelector('.after');
+            const divider = container.querySelector('.slider-divider');
+            let isDragging = false;
+
+            function updateSlider(x) {
+                const rect = container.getBoundingClientRect();
+                let offsetX = x - rect.left;
+                offsetX = Math.max(0, Math.min(offsetX, rect.width));
+                divider.style.left = `${offsetX}px`;
+                afterImg.style.clipPath = `inset(0 ${rect.width - offsetX}px 0 0)`;
+            }
+
+            container.addEventListener('mousemove', e => {
+                if (isDragging) updateSlider(e.pageX);
+            });
+            container.addEventListener('mousedown', e => {
+                isDragging = true;
+                updateSlider(e.pageX);
+            });
+            document.addEventListener('mouseup', () => isDragging = false);
+            container.addEventListener('touchmove', e => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                updateSlider(touch.pageX);
+            }, { passive: false });
+            container.addEventListener('touchstart', e => {
+                const touch = e.touches[0];
+                updateSlider(touch.pageX);
+            }, { passive: false });
+
+            const rect = container.getBoundingClientRect();
+            updateSlider(rect.left + rect.width / 2);
+
+            container.querySelector('.maximize').addEventListener('click', e => {
+                e.stopPropagation();
                 console.log("11. Opening breakdown modal");
-                const index = slider.getAttribute('data-index');
-                const beforeSrc = slider.querySelector('.before').src;
-                const afterSrc = slider.querySelector('.after').src;
+                const index = container.getAttribute('data-index');
+                const beforeSrc = beforeImg.src;
+                const afterSrc = afterImg.src;
+                const desc = container.nextElementSibling.querySelector('p').textContent;
                 openModal(`
-                    <div class="modal-slider" data-index="${index}">
-                        <img class="before" src="${beforeSrc}" alt="Before VFX">
-                        <img class="after" src="${afterSrc}" alt="After VFX">
-                        <div class="slider-bar"></div>
+                    <div class="slider-modal-content" data-index="${index}">
+                        <img class="slider-before" src="${beforeSrc}" alt="Before VFX">
+                        <img class="slider-after" src="${afterSrc}" alt="After VFX">
+                        <div class="slider-divider"></div>
+                        <div class="slider-description"><p>${desc}</p></div>
                     </div>
-                `, 'breakdown');
+                `, 'slider');
             });
         });
     }
@@ -284,53 +316,86 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function openModal(content, type = '') {
+    function openModal(content, type) {
         const modal = document.createElement('div');
-        modal.classList.add('modal', `modal-${type}`);
+        modal.classList.add('modal', `${type}-modal`);
         modal.innerHTML = `
-            <div class="modal-content">
-                <span class="modal-close">×</span>
-                ${content}
-            </div>
+            <span class="close" aria-label="Close modal">×</span>
+            ${content}
+            <span class="prev" aria-label="Previous">❮</span>
+            <span class="next" aria-label="Next">❯</span>
         `;
         document.body.appendChild(modal);
 
-        const closeBtn = modal.querySelector('.modal-close');
+        const closeBtn = modal.querySelector('.close');
         closeBtn.addEventListener('click', () => {
             console.log("12. Closing modal");
             modal.remove();
         });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                console.log("12. Closing modal (outside click)");
-                modal.remove();
-            }
+        modal.addEventListener('click', e => {
+            if (e.target === modal) modal.remove();
         });
 
-        modal.classList.add('open');
+        if (type === 'slider') {
+            const sliderContent = modal.querySelector('.slider-modal-content');
+            const beforeImg = sliderContent.querySelector('.slider-before');
+            const afterImg = sliderContent.querySelector('.slider-after');
+            const divider = sliderContent.querySelector('.slider-divider');
+            let isDragging = false;
+
+            function updateSlider(x) {
+                const rect = sliderContent.getBoundingClientRect();
+                let offsetX = x - rect.left;
+                offsetX = Math.max(0, Math.min(offsetX, rect.width));
+                divider.style.left = `${offsetX}px`;
+                afterImg.style.clipPath = `inset(0 ${rect.width - offsetX}px 0 0)`;
+            }
+
+            sliderContent.addEventListener('mousemove', e => {
+                if (isDragging) updateSlider(e.pageX);
+            });
+            sliderContent.addEventListener('mousedown', e => {
+                isDragging = true;
+                updateSlider(e.pageX);
+            });
+            document.addEventListener('mouseup', () => isDragging = false);
+            sliderContent.addEventListener('touchmove', e => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                updateSlider(touch.pageX);
+            }, { passive: false });
+            sliderContent.addEventListener('touchstart', e => {
+                const touch = e.touches[0];
+                updateSlider(touch.pageX);
+            }, { passive: false });
+
+            const rect = sliderContent.getBoundingClientRect();
+            updateSlider(rect.left + rect.width / 2);
+        }
+
+        modal.classList.add('active');
     }
 
     function openPortfolioModal(currentIndex, items) {
         const total = items.length;
         const updateModal = (index) => {
             const imgSrc = items[index].querySelector('img').src;
+            const desc = items[index].querySelector('img').getAttribute('data-description');
             return `
-                <div class="modal-portfolio" data-index="${index}">
-                    <button class="modal-prev ${index === 0 ? 'disabled' : ''}">&#10094;</button>
-                    <img src="${imgSrc}" alt="Portfolio Image" class="modal-image">
-                    <button class="modal-next ${index === total - 1 ? 'disabled' : ''}">&#10095;</button>
+                <div class="modal-content-container">
+                    <img class="modal-content" src="${imgSrc}" alt="Portfolio Image">
+                    <div class="modal-description">${desc}</div>
                 </div>
             `;
         };
 
         const modal = document.createElement('div');
-        modal.classList.add('modal', 'modal-portfolio');
+        modal.classList.add('modal', 'image-modal');
         modal.innerHTML = `
-            <div class="modal-content">
-                <span class="modal-close">×</span>
-                ${updateModal(currentIndex)}
-            </div>
+            <span class="close" aria-label="Close modal">×</span>
+            ${updateModal(currentIndex)}
+            <span class="prev" aria-label="Previous">❮</span>
+            <span class="next" aria-label="Next">❯</span>
         `;
         document.body.appendChild(modal);
 
@@ -339,61 +404,52 @@ document.addEventListener("DOMContentLoaded", function() {
             modal.remove();
         };
 
-        modal.querySelector('.modal-close').addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
+        modal.querySelector('.close').addEventListener('click', closeModal);
+        modal.addEventListener('click', e => {
             if (e.target === modal) closeModal();
         });
 
-        const prevBtn = modal.querySelector('.modal-prev');
-        const nextBtn = modal.querySelector('.modal-next');
+        const prevBtn = modal.querySelector('.prev');
+        const nextBtn = modal.querySelector('.next');
+        prevBtn.style.display = total > 1 ? 'block' : 'none';
+        nextBtn.style.display = total > 1 ? 'block' : 'none';
+
         prevBtn.addEventListener('click', () => {
             if (currentIndex > 0) {
                 currentIndex--;
-                modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
-                rebindButtons();
+                modal.querySelector('.modal-content-container').innerHTML = updateModal(currentIndex);
+                prevBtn.style.display = currentIndex > 0 ? 'block' : 'none';
+                nextBtn.style.display = currentIndex < total - 1 ? 'block' : 'none';
             }
         });
         nextBtn.addEventListener('click', () => {
             if (currentIndex < total - 1) {
                 currentIndex++;
-                modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
-                rebindButtons();
+                modal.querySelector('.modal-content-container').innerHTML = updateModal(currentIndex);
+                prevBtn.style.display = currentIndex > 0 ? 'block' : 'none';
+                nextBtn.style.display = currentIndex < total - 1 ? 'block' : 'none';
             }
         });
 
-        function rebindButtons() {
-            modal.querySelector('.modal-close').addEventListener('click', closeModal);
-            modal.querySelector('.modal-prev').addEventListener('click', () => {
-                if (currentIndex > 0) {
+        document.addEventListener('keydown', e => {
+            if (modal.classList.contains('active')) {
+                if (e.key === 'ArrowLeft' && currentIndex > 0) {
                     currentIndex--;
-                    modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
-                    rebindButtons();
-                }
-            });
-            modal.querySelector('.modal-next').addEventListener('click', () => {
-                if (currentIndex < total - 1) {
+                    modal.querySelector('.modal-content-container').innerHTML = updateModal(currentIndex);
+                    prevBtn.style.display = currentIndex > 0 ? 'block' : 'none';
+                    nextBtn.style.display = currentIndex < total - 1 ? 'block' : 'none';
+                } else if (e.key === 'ArrowRight' && currentIndex < total - 1) {
                     currentIndex++;
-                    modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
-                    rebindButtons();
+                    modal.querySelector('.modal-content-container').innerHTML = updateModal(currentIndex);
+                    prevBtn.style.display = currentIndex > 0 ? 'block' : 'none';
+                    nextBtn.style.display = currentIndex < total - 1 ? 'block' : 'none';
+                } else if (e.key === 'Escape') {
+                    closeModal();
                 }
-            });
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft' && currentIndex > 0) {
-                currentIndex--;
-                modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
-                rebindButtons();
-            } else if (e.key === 'ArrowRight' && currentIndex < total - 1) {
-                currentIndex++;
-                modal.querySelector('.modal-content').innerHTML = `<span class="modal-close">×</span>${updateModal(currentIndex)}`;
-                rebindButtons();
-            } else if (e.key === 'Escape') {
-                closeModal();
             }
         });
 
-        modal.classList.add('open');
+        modal.classList.add('active');
     }
 
     function updateActiveNav(page) {
