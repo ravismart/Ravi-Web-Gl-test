@@ -119,8 +119,8 @@ document.addEventListener("DOMContentLoaded", function() {
                                         <div class="skill-item"><img src="icons/houdini.svg" alt="Houdini" class="software-logo"><span>Houdini</span></div>
                                         <div class="skill-item"><img src="icons/maya.svg" alt="Maya" class="software-logo"><span>Maya</span></div>
                                         <div class="skill-item"><img src="icons/adobe-substance-painter.svg" alt="Substance Painter" class="software-logo"><span>Substance Painter</span></div>
-                                        <div class="skill-item"><img src="https://raw.githubusercontent.com/ravismart/Ravi-Web-Gl-test/813cb605e5893ff90f1a1a06b501cea7d0f67425/icons/adobe-premier.png" alt="Premiere Pro" class="software-logo"><span>Premiere Pro</span></div>
-                                        <div class="skill-item"><img src="https://raw.githubusercontent.com/ravismart/Ravi-Web-Gl-test/813cb605e5893ff90f1a1a06b501cea7d0f67425/icons/adobe-after-effects.png" alt="After Effects" class="software-logo"><span>After Effects</span></div>
+                                        <div class="skill-item"><img src="icons/Premiere Pro.svg" alt="Premiere Pro" class="software-logo"><span>Premiere Pro</span></div>
+                                        <div class="skill-item"><img src="icons/After Effects" alt="After Effects" class="software-logo"><span>After Effects</span></div>
                                         <div class="skill-item"><img src="icons/shotgrid.svg" alt="ShotGrid" class="software-logo"><span>ShotGrid</span></div>
                                     </div>
                                 </div>
