@@ -59,8 +59,30 @@
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <!-- Firebase Modular Imports -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+        import { getFirestore, collection, getDocs, addDoc, orderBy, query, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAWXzsqC6BKxhQwHyLd6D4vsSskyq136yY",
+            authDomain: "ravi-vfx-portfolio.firebaseapp.com",
+            projectId: "ravi-vfx-portfolio",
+            storageBucket: "ravi-vfx-portfolio.firebasestorage.app",
+            messagingSenderId: "352536740700",
+            appId: "1:352536740700:web:367340a615b35f42f9f799",
+            measurementId: "G-26N9GY8TSK"
+        };
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            window.firebase = { app, db, collection, getDocs, addDoc, orderBy, query, serverTimestamp };
+            console.log("Firebase module loaded and initialized");
+        } catch (err) {
+            console.error("Firebase module initialization failed:", err);
+        }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
