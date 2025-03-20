@@ -115,19 +115,20 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <h2>Ravikanth Kachibhotla</h2>
                                     <p>VFX Compositor & Creative Visionary</p>
                                     <div class="skills-grid">
-                                        <div class="skill-item"><img src="https://simpleicons.org/icons/nuke.svg" alt="NUKE" class="software-logo"><span>NUKE</span></div>
-                                        <div class="skill-item"><img src="https://simpleicons.org/icons/houdini.svg" alt="Houdini" class="software-logo"><span>Houdini</span></div>
-                                        <div class="skill-item"><img src="https://simpleicons.org/icons/autodeskmaya.svg" alt="Maya" class="software-logo"><span>Maya</span></div>
-                                        <div class="skill-item"><img src="https://simpleicons.org/icons/adobesubstance3dpainter.svg" alt="Substance Painter" class="software-logo"><span>Substance Painter</span></div>
-                                        <div class="skill-item"><img src="https://simpleicons.org/icons/adobepremierepro.svg" alt="Premiere Pro" class="software-logo"><span>Premiere Pro</span></div>
-                                        <div class="skill-item"><img src="https://simpleicons.org/icons/adobeaftereffects.svg" alt="After Effects" class="software-logo"><span>After Effects</span></div>
-                                        <div class="skill-item"><img src="https://simpleicons.org/icons/shotgrid.svg" alt="ShotGrid" class="software-logo"><span>ShotGrid</span></div>
+                                        <div class="skill-item"><img src="icons/nuke.svg" alt="NUKE" class="software-logo"><span>NUKE</span></div>
+                                        <div class="skill-item"><img src="icons/houdini.svg" alt="Houdini" class="software-logo"><span>Houdini</span></div>
+                                        <div class="skill-item"><img src="icons/maya.svg" alt="Maya" class="software-logo"><span>Maya</span></div>
+                                        <div class="skill-item"><img src="icons/adobe-substance-painter.svg" alt="Substance Painter" class="software-logo"><span>Substance Painter</span></div>
+                                        <div class="skill-item"><img src="icons/adobe-premiere-pro.svg" alt="Premiere Pro" class="software-logo"><span>Premiere Pro</span></div>
+                                        <div class="skill-item"><img src="icons/adobe-after-effects.svg" alt="After Effects" class="software-logo"><span>After Effects</span></div>
+                                        <div class="skill-item"><img src="icons/shotgrid.svg" alt="ShotGrid" class="software-logo"><span>ShotGrid</span></div>
                                     </div>
                                 </div>
                                 <div class="about-right">
                                     <div class="bio-section">
                                         <h4>Profile</h4>
-                                        <p>I’m Ravikanth Kachibhotla, a dedicated VFX Compositor based in Calgary, AB. With a passion for blending creativity and technology, I specialize in crafting seamless visual effects that elevate storytelling. My journey in visual arts is driven by a relentless pursuit of perfection and an eye for cinematic detail.</p>
+                                        <p class="typewriter">I’m Ravikanth Kachibhotla, a passionate VFX Compositor crafting cinematic magic.</p>
+                                        <p>Based in Calgary, AB, I specialize in blending creativity and technology to elevate storytelling. My journey in visual arts is fueled by a relentless pursuit of perfection and an eye for detail.</p>
                                     </div>
                                     <div class="bio-section">
                                         <h4>Professional Journey</h4>
@@ -244,6 +245,22 @@ document.addEventListener("DOMContentLoaded", function() {
                 response.textContent = 'Error submitting review: ' + err.message;
             });
         });
+
+        // Typewriter effect
+        const typewriter = document.querySelector('.typewriter');
+        if (typewriter) {
+            const text = typewriter.textContent;
+            typewriter.textContent = '';
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    typewriter.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            type();
+        }
     }
 
     function initializeContact() {
