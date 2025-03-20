@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
             initializePage(page);
             updateActiveNav(page);
             console.log(`7. Page ${page} loaded successfully`);
-        }, 100); // Slight delay for fade-in
+        }, 100);
     }
 
     function fetchContent(page) {
@@ -173,36 +173,37 @@ document.addEventListener("DOMContentLoaded", function() {
         const response = document.getElementById('testimonial-response');
         const list = document.getElementById('testimonial-list');
 
-        if (!window.firebase || !window.firebase.db) {
+        if (typeof firebase === 'undefined' || !firebase.firestore) {
             list.innerHTML = '<p>Testimonials unavailable (database not initialized).</p>';
             console.log("11. Firebase not available");
             return;
         }
 
-        const { db, collection, getDocs, addDoc, orderBy, query, serverTimestamp } = window.firebase;
-        const q = query(collection(db, 'testimonials'), orderBy('timestamp', 'desc'));
-        getDocs(q).then(snapshot => {
-            list.innerHTML = snapshot.docs.map(doc => `
-                <div class="testimonial">
-                    <p>"${doc.data().comment}"</p>
-                    <p class="testimonial-name">- ${doc.data().name}</p>
-                </div>
-            `).join('');
-            console.log("12. Testimonials loaded successfully");
-        }).catch(err => {
-            console.error("12. Error loading testimonials:", err);
-            list.innerHTML = '<p>Failed to load testimonials.</p>';
-        });
+        const db = firebase.firestore();
+        db.collection('testimonials').orderBy('timestamp', 'desc').get()
+            .then(snapshot => {
+                list.innerHTML = snapshot.docs.map(doc => `
+                    <div class="testimonial">
+                        <p>"${doc.data().comment}"</p>
+                        <p class="testimonial-name">- ${doc.data().name}</p>
+                    </div>
+                `).join('');
+                console.log("12. Testimonials loaded successfully");
+            })
+            .catch(err => {
+                console.error("12. Error loading testimonials:", err);
+                list.innerHTML = '<p>Failed to load testimonials.</p>';
+            });
 
         form.addEventListener('submit', e => {
             e.preventDefault();
             console.log("13. Submitting testimonial");
             const name = form.name.value;
             const comment = form.comment.value;
-            addDoc(collection(db, 'testimonials'), {
+            db.collection('testimonials').add({
                 name,
                 comment,
-                timestamp: serverTimestamp()
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 response.textContent = 'Review submitted successfully!';
                 form.reset();
@@ -228,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const res = await fetch('https://formspree.io/f/mdknbwwq', {
                     method: 'POST',
                     body: formData,
+                    mode: 'cors', // Explicitly set to handle CORS
                     headers: { 'Accept': 'application/json' }
                 });
                 if (res.ok) {
@@ -244,63 +246,76 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             } catch (err) {
                 console.error("12. Network error in contact form:", err);
-                response.textContent = 'Network error: ' + err.message;
+                response.textContent = 'Network error: Please try again later.';
             }
         });
     }
 
     function initializeBreakdowns() {
         console.log("10. Initializing Breakdowns page");
-        document.querySelectorAll('.slider-container').forEach(container => {
+        const containers = document.querySelectorAll('.slider-container');
+        containers.forEach((container, index) => {
             const beforeImg = container.querySelector('.before');
             const afterImg = container.querySelector('.after');
             const divider = container.querySelector('.slider-divider');
-            let isDragging = false;
 
-            function updateSlider(x) {
-                const rect = container.getBoundingClientRect();
-                let offsetX = x - rect.left;
-                offsetX = Math.max(0, Math.min(offsetX, rect.width));
-                divider.style.left = `${offsetX}px`;
-                afterImg.style.clipPath = `inset(0 ${rect.width - offsetX}px 0 0)`;
+            function setupSlider(element) {
+                let isDragging = false;
+                let startX;
+
+                function updateSlider(x) {
+                    const rect = element.getBoundingClientRect();
+                    let offsetX = x - rect.left;
+                    offsetX = Math.max(0, Math.min(offsetX, rect.width));
+                    divider.style.left = `${offsetX}px`;
+                    afterImg.style.clipPath = `inset(0 ${rect.width - offsetX}px 0 0)`;
+                }
+
+                element.addEventListener('mousedown', e => {
+                    isDragging = true;
+                    startX = e.pageX;
+                    updateSlider(startX);
+                });
+
+                element.addEventListener('mousemove', e => {
+                    if (isDragging) {
+                        updateSlider(e.pageX);
+                    }
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+
+                element.addEventListener('touchstart', e => {
+                    const touch = e.touches[0];
+                    startX = touch.pageX;
+                    updateSlider(startX);
+                }, { passive: false });
+
+                element.addEventListener('touchmove', e => {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    updateSlider(touch.pageX);
+                }, { passive: false });
+
+                element.addEventListener('touchend', () => {
+                    isDragging = false;
+                }, { passive: false });
+
+                const rect = element.getBoundingClientRect();
+                updateSlider(rect.left + rect.width / 2);
             }
 
-            container.addEventListener('mousemove', e => {
-                if (isDragging) updateSlider(e.pageX);
-            });
-            container.addEventListener('mousedown', e => {
-                isDragging = true;
-                updateSlider(e.pageX);
-            });
-            document.addEventListener('mouseup', () => isDragging = false);
-            container.addEventListener('touchmove', e => {
-                e.preventDefault();
-                const touch = e.touches[0];
-                updateSlider(touch.pageX);
-            }, { passive: false });
-            container.addEventListener('touchstart', e => {
-                const touch = e.touches[0];
-                updateSlider(touch.pageX);
-            }, { passive: false });
-
-            const rect = container.getBoundingClientRect();
-            updateSlider(rect.left + rect.width / 2);
+            setupSlider(container);
 
             container.querySelector('.maximize').addEventListener('click', e => {
                 e.stopPropagation();
                 console.log("11. Opening breakdown modal");
-                const index = container.getAttribute('data-index');
                 const beforeSrc = beforeImg.src;
                 const afterSrc = afterImg.src;
                 const desc = container.nextElementSibling.querySelector('p').textContent;
-                openModal(`
-                    <div class="slider-modal-content" data-index="${index}">
-                        <img class="slider-before" src="${beforeSrc}" alt="Before VFX">
-                        <img class="slider-after" src="${afterSrc}" alt="After VFX">
-                        <div class="slider-divider"></div>
-                        <div class="slider-description"><p>${desc}</p></div>
-                    </div>
-                `, 'slider');
+                openSliderModal(index, containers);
             });
         });
     }
@@ -316,62 +331,121 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function openModal(content, type) {
+    function openSliderModal(currentIndex, containers) {
+        const total = containers.length;
+        const updateModal = (index) => {
+            const beforeSrc = containers[index].querySelector('.before').src;
+            const afterSrc = containers[index].querySelector('.after').src;
+            const desc = containers[index].nextElementSibling.querySelector('p').textContent;
+            return `
+                <div class="slider-modal-content" data-index="${index}">
+                    <img class="slider-before" src="${beforeSrc}" alt="Before VFX">
+                    <img class="slider-after" src="${afterSrc}" alt="After VFX">
+                    <div class="slider-divider"></div>
+                    <div class="slider-description"><p>${desc}</p></div>
+                </div>
+            `;
+        };
+
         const modal = document.createElement('div');
-        modal.classList.add('modal', `${type}-modal`);
+        modal.classList.add('modal', 'slider-modal');
         modal.innerHTML = `
             <span class="close" aria-label="Close modal">×</span>
-            ${content}
+            ${updateModal(currentIndex)}
             <span class="prev" aria-label="Previous">❮</span>
             <span class="next" aria-label="Next">❯</span>
         `;
         document.body.appendChild(modal);
 
-        const closeBtn = modal.querySelector('.close');
-        closeBtn.addEventListener('click', () => {
+        const closeModal = () => {
             console.log("12. Closing modal");
             modal.remove();
-        });
+        };
+
+        modal.querySelector('.close').addEventListener('click', closeModal);
         modal.addEventListener('click', e => {
-            if (e.target === modal) modal.remove();
+            if (e.target === modal) closeModal();
         });
 
-        if (type === 'slider') {
-            const sliderContent = modal.querySelector('.slider-modal-content');
-            const beforeImg = sliderContent.querySelector('.slider-before');
-            const afterImg = sliderContent.querySelector('.slider-after');
-            const divider = sliderContent.querySelector('.slider-divider');
+        const sliderContent = modal.querySelector('.slider-modal-content');
+        const beforeImg = sliderContent.querySelector('.slider-before');
+        const afterImg = sliderContent.querySelector('.slider-after');
+        const divider = sliderContent.querySelector('.slider-divider');
+
+        function setupSlider(element) {
             let isDragging = false;
+            let startX;
 
             function updateSlider(x) {
-                const rect = sliderContent.getBoundingClientRect();
+                const rect = element.getBoundingClientRect();
                 let offsetX = x - rect.left;
                 offsetX = Math.max(0, Math.min(offsetX, rect.width));
                 divider.style.left = `${offsetX}px`;
                 afterImg.style.clipPath = `inset(0 ${rect.width - offsetX}px 0 0)`;
             }
 
-            sliderContent.addEventListener('mousemove', e => {
-                if (isDragging) updateSlider(e.pageX);
-            });
-            sliderContent.addEventListener('mousedown', e => {
+            element.addEventListener('mousedown', e => {
                 isDragging = true;
-                updateSlider(e.pageX);
+                startX = e.pageX;
+                updateSlider(startX);
             });
-            document.addEventListener('mouseup', () => isDragging = false);
-            sliderContent.addEventListener('touchmove', e => {
+
+            element.addEventListener('mousemove', e => {
+                if (isDragging) {
+                    updateSlider(e.pageX);
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            element.addEventListener('touchstart', e => {
+                const touch = e.touches[0];
+                startX = touch.pageX;
+                updateSlider(startX);
+            }, { passive: false });
+
+            element.addEventListener('touchmove', e => {
                 e.preventDefault();
                 const touch = e.touches[0];
                 updateSlider(touch.pageX);
             }, { passive: false });
-            sliderContent.addEventListener('touchstart', e => {
-                const touch = e.touches[0];
-                updateSlider(touch.pageX);
+
+            element.addEventListener('touchend', () => {
+                isDragging = false;
             }, { passive: false });
 
-            const rect = sliderContent.getBoundingClientRect();
+            const rect = element.getBoundingClientRect();
             updateSlider(rect.left + rect.width / 2);
         }
+
+        setupSlider(sliderContent);
+
+        const prevBtn = modal.querySelector('.prev');
+        const nextBtn = modal.querySelector('.next');
+        prevBtn.style.display = total > 1 ? 'block' : 'none';
+        nextBtn.style.display = total > 1 ? 'block' : 'none';
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                modal.querySelector('.slider-modal-content').innerHTML = updateModal(currentIndex).replace('<div class="slider-modal-content" data-index="' + currentIndex + '">', '').replace('</div>', '');
+                setupSlider(modal.querySelector('.slider-modal-content'));
+                prevBtn.style.display = currentIndex > 0 ? 'block' : 'none';
+                nextBtn.style.display = currentIndex < total - 1 ? 'block' : 'none';
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < total - 1) {
+                currentIndex++;
+                modal.querySelector('.slider-modal-content').innerHTML = updateModal(currentIndex).replace('<div class="slider-modal-content" data-index="' + currentIndex + '">', '').replace('</div>', '');
+                setupSlider(modal.querySelector('.slider-modal-content'));
+                prevBtn.style.display = currentIndex > 0 ? 'block' : 'none';
+                nextBtn.style.display = currentIndex < total - 1 ? 'block' : 'none';
+            }
+        });
 
         modal.classList.add('active');
     }
