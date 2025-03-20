@@ -210,7 +210,7 @@ body {
     position: relative;
     width: 100%;
     max-width: 800px;
-    aspect-ratio: 16 / 9;
+    height: 450px;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 206, 209, 0.6);
@@ -227,7 +227,7 @@ body {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     position: absolute;
     top: 0;
     left: 0;
@@ -309,20 +309,41 @@ body {
     width: 100%;
 }
 
+.about-parallax {
+    position: relative;
+    background: linear-gradient(135deg, rgba(0, 206, 209, 0.1), rgba(255, 215, 0, 0.1));
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(0, 206, 209, 0.7);
+    overflow: hidden;
+}
+
+.about-parallax::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://picsum.photos/1200/800?blur=5') no-repeat center center;
+    background-size: cover;
+    opacity: 0.2;
+    z-index: 0;
+    transform: translateZ(-1px) scale(1.1);
+}
+
 .about-header {
     text-align: center;
     padding: 2rem;
-    background: linear-gradient(135deg, rgba(0, 206, 209, 0.2), rgba(255, 215, 0, 0.2));
-    border-radius: 15px;
-    box-shadow: 0 6px 25px rgba(0, 206, 209, 0.7);
-    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
 }
 
 .about-header h1 {
     font-family: 'Cinzel', serif;
     color: #00CED1;
-    font-size: 3rem;
+    font-size: 3.5rem;
     text-shadow: 0 2px 10px rgba(0, 206, 209, 0.8);
+    animation: glow 2s infinite alternate;
 }
 
 .about-content {
@@ -333,6 +354,8 @@ body {
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 6px 25px rgba(0, 206, 209, 0.7);
+    position: relative;
+    z-index: 1;
 }
 
 .about-left, .about-right {
@@ -430,6 +453,34 @@ body {
     color: #F5F5F5;
     font-size: 1.2rem;
     line-height: 1.8;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline-item {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    background: #00CED1;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 206, 209, 0.8);
+}
+
+.timeline-item h5 {
+    color: #FFD700;
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
 }
 
 .download-resume-btn {
@@ -555,15 +606,39 @@ body {
 }
 
 /* Contact */
-.contact-form {
+.contact-container {
+    position: relative;
     max-width: 700px;
     margin: 80px auto 2rem;
     padding: 2rem;
-    background: rgba(26, 26, 26, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 206, 209, 0.6);
-    text-align: center;
     width: 100%;
+    background: rgba(26, 26, 26, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(0, 206, 209, 0.7);
+    overflow: hidden;
+}
+
+.contact-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 206, 209, 0.2) 0%, transparent 70%);
+    animation: pulseGlow 4s infinite;
+    z-index: 0;
+}
+
+.contact-form {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.9), rgba(26, 26, 26, 0.9));
+    animation: borderGlow 3s infinite alternate;
 }
 
 .contact-form h2 {
@@ -587,14 +662,15 @@ body {
     padding: 1rem;
     border: 1px solid #FFD700;
     border-radius: 5px;
-    background: #2D2D2D;
+    background: rgba(45, 45, 45, 0.8);
     color: #F5F5F5;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
     border-color: #00CED1;
+    box-shadow: 0 0 10px rgba(0, 206, 209, 0.5);
     outline: none;
 }
 
@@ -687,13 +763,16 @@ footer .social-icons a:hover {
 }
 
 .slider-modal-content img, .modal-content {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .slider-modal-content .slider-before {
@@ -792,6 +871,22 @@ footer .social-icons a:hover {
 @keyframes fadeInText {
     0% { opacity: 0; transform: translateY(10px); }
     100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 2px 10px rgba(0, 206, 209, 0.8); }
+    100% { text-shadow: 0 2px 15px rgba(0, 206, 209, 1); }
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+
+@keyframes borderGlow {
+    0% { border-color: rgba(0, 206, 209, 0.5); }
+    100% { border-color: rgba(255, 215, 0, 0.5); }
 }
 
 /* Responsive */
