@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("6. Content inserted into mainContent");
         loader.style.display = 'none';
         mainContent.classList.add('visible');
+        initializePage(page);
         updateActiveNav(page);
         console.log(`7. Page ${page} loaded successfully`);
     }
@@ -113,8 +114,92 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    function initializePage(page) {
+        console.log(`9. Initializing page: ${page}`);
+        if (page === 'about') initializeAbout();
+        if (page === 'contact') initializeContact();
+    }
+
+    function initializeAbout() {
+        console.log("10. Initializing About page");
+        const form = document.getElementById('testimonial-form');
+        const response = document.getElementById('testimonial-response');
+        const list = document.getElementById('testimonial-list');
+
+        if (!window.firebase || !window.firebase.db) {
+            list.innerHTML = '<p>Testimonials unavailable (database not initialized).</p>';
+            console.log("11. Firebase not available");
+            return;
+        }
+
+        const { db, collection, getDocs, addDoc, orderBy, query, serverTimestamp } = window.firebase;
+        const q = query(collection(db, 'testimonials'), orderBy('timestamp', 'desc'));
+        getDocs(q).then(snapshot => {
+            list.innerHTML = snapshot.docs.map(doc => `
+                <div class="testimonial">
+                    <p>"${doc.data().comment}"</p>
+                    <p>- ${doc.data().name}</p>
+                </div>
+            `).join('');
+            console.log("12. Testimonials loaded successfully");
+        }).catch(err => {
+            console.error("12. Error loading testimonials:", err);
+            list.innerHTML = '<p>Failed to load testimonials.</p>';
+        });
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            console.log("13. Submitting testimonial");
+            const name = form.name.value;
+            const comment = form.comment.value;
+            addDoc(collection(db, 'testimonials'), {
+                name,
+                comment,
+                timestamp: serverTimestamp()
+            }).then(() => {
+                response.textContent = 'Review submitted successfully!';
+                form.reset();
+                initializeAbout();
+                console.log("14. Testimonial submitted successfully");
+            }).catch(err => {
+                console.error("14. Error submitting testimonial:", err);
+                response.textContent = 'Error submitting review: ' + err.message;
+            });
+        });
+    }
+
+    function initializeContact() {
+        console.log("10. Initializing Contact page");
+        const form = document.getElementById('contact-form');
+        const response = document.getElementById('contact-response');
+
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            console.log("11. Submitting contact form");
+            const formData = new FormData(form);
+            try {
+                const res = await fetch('https://formspree.io/f/mdknbwwq', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (res.ok) {
+                    response.textContent = 'Message sent successfully!';
+                    form.reset();
+                    console.log("12. Contact form submitted successfully");
+                } else {
+                    console.error("12. Contact form submission failed:", res.status);
+                    response.textContent = 'Error sending message.';
+                }
+            } catch (err) {
+                console.error("12. Network error in contact form:", err);
+                response.textContent = 'Network error: ' + err.message;
+            });
+        });
+    }
+
     function updateActiveNav(page) {
-        console.log(`9. Updating nav for: ${page}`);
+        console.log(`13. Updating nav for: ${page}`);
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('data-page') === page && !link.classList.contains('logo-link')) {
@@ -127,11 +212,11 @@ document.addEventListener("DOMContentLoaded", function() {
         link.addEventListener('click', e => {
             e.preventDefault();
             const page = link.getAttribute('data-page');
-            console.log(`10. Nav clicked: ${page}`);
+            console.log(`14. Nav clicked: ${page}`);
             loadPage(page);
         });
     });
 
-    console.log("11. Calling loadPage('home')");
+    console.log("15. Calling loadPage('home')");
     loadPage('home');
 });
