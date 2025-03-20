@@ -117,7 +117,6 @@ document.addEventListener("DOMContentLoaded", function() {
     function initializePage(page) {
         console.log(`9. Initializing page: ${page}`);
         if (page === 'about') initializeAbout();
-        if (page === 'contact') initializeContact();
     }
 
     function initializeAbout() {
@@ -168,38 +167,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function initializeContact() {
-        console.log("10. Initializing Contact page");
-        const form = document.getElementById('contact-form');
-        const response = document.getElementById('contact-response');
-
-        form.addEventListener('submit', async e => {
-            e.preventDefault();
-            console.log("11. Submitting contact form");
-            const formData = new FormData(form);
-            try {
-                const res = await fetch('https://formspree.io/f/mdknbwwq', {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (res.ok) {
-                    response.textContent = 'Message sent successfully!';
-                    form.reset();
-                    console.log("12. Contact form submitted successfully");
-                } else {
-                    console.error("12. Contact form submission failed:", res.status);
-                    response.textContent = 'Error sending message.';
-                }
-            } catch (err) {
-                console.error("12. Network error in contact form:", err);
-                response.textContent = 'Network error: ' + err.message;
-            });
-        });
-    }
-
     function updateActiveNav(page) {
-        console.log(`13. Updating nav for: ${page}`);
+        console.log(`10. Updating nav for: ${page}`);
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('data-page') === page && !link.classList.contains('logo-link')) {
@@ -212,11 +181,11 @@ document.addEventListener("DOMContentLoaded", function() {
         link.addEventListener('click', e => {
             e.preventDefault();
             const page = link.getAttribute('data-page');
-            console.log(`14. Nav clicked: ${page}`);
+            console.log(`11. Nav clicked: ${page}`);
             loadPage(page);
         });
     });
 
-    console.log("15. Calling loadPage('home')");
+    console.log("12. Calling loadPage('home')");
     loadPage('home');
 });
