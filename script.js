@@ -118,6 +118,8 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(`9. Initializing page: ${page}`);
         if (page === 'about') initializeAbout();
         if (page === 'contact') initializeContact();
+        if (page === 'breakdowns') initializeBreakdowns();
+        if (page === 'portfolio') initializePortfolio();
     }
 
     function initializeAbout() {
@@ -194,7 +196,63 @@ document.addEventListener("DOMContentLoaded", function() {
             } catch (err) {
                 console.error("12. Network error in contact form:", err);
                 response.textContent = 'Network error: ' + err.message;
-            };
+            });
+        });
+    }
+
+    function initializeBreakdowns() {
+        console.log("10. Initializing Breakdowns page");
+        document.querySelectorAll('.slider-container').forEach(slider => {
+            slider.addEventListener('click', () => {
+                console.log("11. Opening breakdown modal");
+                const beforeSrc = slider.querySelector('.before').src;
+                const afterSrc = slider.querySelector('.after').src;
+                openModal(`
+                    <div class="modal-slider">
+                        <img class="before" src="${beforeSrc}" alt="Before VFX">
+                        <img class="after" src="${afterSrc}" alt="After VFX">
+                        <div class="slider-bar"></div>
+                    </div>
+                `);
+            });
+        });
+    }
+
+    function initializePortfolio() {
+        console.log("10. Initializing Portfolio page");
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', () => {
+                console.log("11. Opening portfolio modal");
+                const imgSrc = item.querySelector('img').src;
+                openModal(`
+                    <img src="${imgSrc}" alt="Portfolio Image" class="modal-image">
+                `);
+            });
+        });
+    }
+
+    function openModal(content) {
+        const modal = document.createElement('div');
+        modal.classList.add('modal');
+        modal.innerHTML = `
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                ${content}
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        const closeBtn = modal.querySelector('.modal-close');
+        closeBtn.addEventListener('click', () => {
+            console.log("12. Closing modal");
+            modal.remove();
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                console.log("12. Closing modal (outside click)");
+                modal.remove();
+            }
         });
     }
 
