@@ -116,6 +116,55 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function initializePage(page) {
         console.log(`9. Initializing page: ${page}`);
+        if (page === 'about') initializeAbout();
+    }
+
+    function initializeAbout() {
+        console.log("10. Initializing About page");
+        const form = document.getElementById('testimonial-form');
+        const response = document.getElementById('testimonial-response');
+        const list = document.getElementById('testimonial-list');
+
+        if (!window.firebase || !window.firebase.db) {
+            list.innerHTML = '<p>Testimonials unavailable (database not initialized).</p>';
+            console.log("11. Firebase not available");
+            return;
+        }
+
+        const { db, collection, getDocs, addDoc, orderBy, query, serverTimestamp } = window.firebase;
+        const q = query(collection(db, 'testimonials'), orderBy('timestamp', 'desc'));
+        getDocs(q).then(snapshot => {
+            list.innerHTML = snapshot.docs.map(doc => `
+                <div class="testimonial">
+                    <p>"${doc.data().comment}"</p>
+                    <p>- ${doc.data().name}</p>
+                </div>
+            `).join('');
+            console.log("12. Testimonials loaded successfully");
+        }).catch(err => {
+            console.error("12. Error loading testimonials:", err);
+            list.innerHTML = '<p>Failed to load testimonials.</p>';
+        });
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            console.log("13. Submitting testimonial");
+            const name = form.name.value;
+            const comment = form.comment.value;
+            addDoc(collection(db, 'testimonials'), {
+                name,
+                comment,
+                timestamp: serverTimestamp()
+            }).then(() => {
+                response.textContent = 'Review submitted successfully!';
+                form.reset();
+                initializeAbout();
+                console.log("14. Testimonial submitted successfully");
+            }).catch(err => {
+                console.error("14. Error submitting testimonial:", err);
+                response.textContent = 'Error submitting review: ' + err.message;
+            });
+        });
     }
 
     function updateActiveNav(page) {
