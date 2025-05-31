@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                         <div class="portfolio-item" data-index="2">
                             <!-- Replace with your image -->
-                            <img src="https://github.com/ravismart/Ravi-Web-Gl-test/blob/ffb5ce19862c50d60bea913865d50440e29dfdea/icons/_MG_0345.jpg" alt="VFX Project 3" data-description="Project 3: Visual effects showcase">
+                            <img src="https://drive.google.com/file/d/1fOQZi4Q-fXGTI7Qgbh8xROSOohAcCNG5/view" alt="VFX Project 4" data-description="Project 4: Visual effects showcase">
                         </div>
                         
                     </div>
