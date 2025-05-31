@@ -100,6 +100,11 @@ document.addEventListener("DOMContentLoaded", function() {
                             <!-- Replace with your image -->
                             <img src="https://picsum.photos/800/450?random=3" alt="VFX Project 3" data-description="Project 3: Visual effects showcase">
                         </div>
+                        <div class="portfolio-item" data-index="2">
+                            <!-- Replace with your image -->
+                            <img src="https://picsum.photos/800/450?random=3" alt="VFX Project 3" data-description="Project 3: Visual effects showcase">
+                        </div>
+                        
                     </div>
                 `;
             case 'about':
