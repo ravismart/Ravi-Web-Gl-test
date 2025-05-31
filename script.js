@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                         <div class="portfolio-item" data-index="2">
                             <!-- Replace with your image -->
-                            <img src="https://drive.google.com/file/d/1fOQZi4Q-fXGTI7Qgbh8xROSOohAcCNG5/view" alt="VFX Project 4" data-description="Project 4: Visual effects showcase">
+                            <img src="https://drive.google.com/file/d/1fOQZi4Q-fXGTI7Qgbh8xROSOohAcCNG5/view?usp=sharing" alt="VFX Project 4" data-description="Project 4: Visual effects showcase">
                         </div>
                         
                     </div>
